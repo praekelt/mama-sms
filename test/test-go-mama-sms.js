@@ -144,6 +144,77 @@ var setup_api = function(api) {
     };
 };
 
+describe('MAMA SMS with a fake end state for STK', function () {
+    var tester;
+    var config = {
+        'stk_fake_exit': true,
+        'sequential_send_keys': ['foo', 'bar', 'baz'],
+        'extra_sms_stat_keys': [],
+        'sms_tag': ['pool', 'tag'],
+        'default_language': 'english',
+        'welcome_sms_copy': (
+            "You signed up to get MAMA SMSs, every Monday & Thursday around 9am. " +
+            "To stop SMSs, send a call-me to 071 166 7783. (We won't call you back, " +
+            "SMS will just stop.)")
+    };
+
+    beforeEach(function() {
+        tester = new vumigo.test_utils.ImTester(app.api, {
+            custom_setup: function(api) {
+                api.config_store.config = JSON.stringify(config);
+
+                fixtures.forEach(function(f) {
+                    api.load_http_fixture(f);
+                });
+
+                setup_groups(app, api);
+                setup_api(api);
+            },
+            async: true
+        });
+
+        // patch the date functions to return predictable dates
+        var state_creator = app.api.im.state_creator;
+        state_creator.get_current_date = function() {
+            return new Date(2013, 6, 17); // July == 6
+        };
+        state_creator.get_last_monday = function() {
+            return new Date(2013, 6, 15); // July == 6
+        };
+    });
+
+    it('should show a fake exit before the real end', function (done) {
+        var p = tester.check_state({
+            user: {
+                current_state: 'hiv_messages',
+                answers: {
+                    user_status: 'baby',
+                    initial_age: '2'
+                }
+            },
+            content: '1',
+            next_state: 'end',
+            response: (
+                'Thanks for joining MAMA. We\'ll start SMSing you this week.[^]' +
+                '1. Exit'
+            ),
+            teardown: assert_single_sms('1234567', 'You signed up to get MAMA SMSs')
+        }).then(done, done);
+    });
+
+    it('should show the real end screen when replying to the fake exit', function (done) {
+        var p = tester.check_state({
+            user: {
+                current_state: 'end'
+            },
+            content: '1',
+            next_state: 'stk_end',
+            response: 'Thank you, good bye.',
+            continue_session: false
+        }).then(done, done);
+    });
+});
+
 describe("Mama SMS application in a default language", function() {
 
     var tester;
