@@ -29,3 +29,8 @@ How it works:
 
 As people interact with the service they are automatically assigned to
 a smart group and messaging will kick in.
+
+NOTE::
+
+  This code used to be in a private repository called `mama-go` but
+  has been extracted from it.
