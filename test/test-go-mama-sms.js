@@ -260,7 +260,7 @@ describe("Mama SMS application in a default language", function() {
             content: null,
             next_state: 'language_selection',
             response: (
-                '^To get MAMA messages, we need to ask you 4 questions. '+
+                '^To get MAMA messages, we need to ask you 3 questions. '+
                 'Would you like to continue and answer these\\?[^]' +
                 '1. Yes please.[^]' +
                 '2. No thank you.$'),
@@ -268,7 +268,7 @@ describe("Mama SMS application in a default language", function() {
         }).then(done, done);
     });
 
-    it('should allow for ending the menu if not wanting to answer the 4 questions', function (done) {
+    it('should allow for ending the menu if not wanting to answer the questions', function (done) {
         var p = tester.check_state({
             user: {
                 current_state: 'opt_status'
@@ -276,7 +276,7 @@ describe("Mama SMS application in a default language", function() {
             content: '2',
             next_state: 'cancel',
             response: (
-                '^To receive MAMA SMSs you will need to answer the 4 questions.$'),
+                '^To receive MAMA SMSs you will need to answer the questions.$'),
             continue_session: false
         }).then(done, done);
     });
