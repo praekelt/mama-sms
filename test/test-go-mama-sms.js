@@ -147,6 +147,7 @@ var setup_api = function(api) {
 describe('MAMA SMS with a fake end state for STK', function () {
     var tester;
     var config = {
+        'custom_opening_copy': 'Foo bar baz',
         'stk_fake_exit': true,
         'sequential_send_keys': ['foo', 'bar', 'baz'],
         'extra_sms_stat_keys': [],
@@ -213,6 +214,19 @@ describe('MAMA SMS with a fake end state for STK', function () {
             continue_session: false
         }).then(done, done);
     });
+
+    it('should allow for custom opening copy', function (done) {
+        var p = tester.check_state({
+            user: null,
+            content: null,
+            next_state: 'language_selection',
+            response: (
+                '^Foo bar baz[^]' +
+                '1. Yes please[^]' +
+                '2. No thanks$'),
+            continue_session: true
+        }).then(done, done);
+    });
 });
 
 describe("Mama SMS application in a default language", function() {
@@ -262,8 +276,8 @@ describe("Mama SMS application in a default language", function() {
             response: (
                 '^To get MAMA messages, we need to ask you 3 questions. '+
                 'Would you like to continue and answer these\\?[^]' +
-                '1. Yes please.[^]' +
-                '2. No thank you.$'),
+                '1. Yes please[^]' +
+                '2. No thanks$'),
             continue_session: true
         }).then(done, done);
     });
