@@ -144,9 +144,10 @@ var setup_api = function(api) {
     };
 };
 
-describe('MAMA SMS with a fake end state for STK', function () {
+describe('MAMA SMS from an STK', function () {
     var tester;
     var config = {
+        'skip_hiv_messages': true,
         'custom_opening_copy': 'Foo bar baz',
         'stk_fake_exit': true,
         'sequential_send_keys': ['foo', 'bar', 'baz'],
@@ -224,6 +225,21 @@ describe('MAMA SMS with a fake end state for STK', function () {
                 '^Foo bar baz[^]' +
                 '1. Yes please[^]' +
                 '2. No thanks$'),
+            continue_session: true
+        }).then(done, done);
+    });
+
+    it('should allow skipping the HIV option', function (done) {
+        var p = tester.check_state({
+            user: {
+                current_state: 'initial_age',
+                answers: {
+                    'user_status': 'baby'
+                }
+            },
+            content: '2',
+            next_state: 'end',
+            response: '^Thanks for joining MAMA.',
             continue_session: true
         }).then(done, done);
     });
