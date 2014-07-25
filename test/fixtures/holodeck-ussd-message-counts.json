@@ -1,0 +1,14 @@
+{
+  "url": "http://holodeck.praekelt.com/api/store/",
+  "method": "POST",
+  "content_type": "application/json",
+  "data": {
+    "api_key": "2f7a505fd2db455f8e5d659196066b67",
+    "samples": [
+      ["Total Inbound Messages", 5],
+      ["Total Outbound Messages", 3]
+    ],
+    "timestamp": "2013-07-16 22:00:00"
+  },
+  "body": {}
+}

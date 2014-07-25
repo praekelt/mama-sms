@@ -1,0 +1,71 @@
+{
+  "": {
+    "project_id_version": "mama-sms", 
+    "report_msgid_bugs_to": "", 
+    "pot_creation_date": "2013-11-19 20:05+0200", 
+    "po_revision_date": "2013-11-19 20:54+0200", 
+    "last_translator": "Simon de Haan <simon@praekeltfoundation.org>", 
+    "language_team": "Praekelt Foundation <mama@praekeltfoundation.org>", 
+    "mime_version": "1.0", 
+    "content_type": "text/plain; charset=UTF-8", 
+    "content_transfer_encoding": "8bit", 
+    "x_generator": "Poedit 1.5.7", 
+    "language": "Setswana"
+  }, 
+  "11 or more": [
+    null, 
+    "11 kgotsa go feta"
+  ], 
+  "Are you pregnant, or do you have a baby?": [
+    null, 
+    "A o mmeleng, kgotsa o na le lesea?"
+  ], 
+  "Baby": [
+    null, 
+    "Lesea"
+  ], 
+  "Don't know": [
+    null, 
+    "Ga ke itse"
+  ], 
+  "Don't wait! The first pregnancy check-up must happen as soon as you know. Do the test as soon as possible at any clinic, or get one at a pharmacy. Stay well.": [
+    null, 
+    "Se eme! Tlhatlhobo ya ntlha ya boimana e tshwanetse go dirwa ka bonako. Dira teko ka bonako ko kliniking kgotsa ko pharmacy. Tlhola sentle."
+  ], 
+  "How many months old is your baby?": [
+    null, 
+    "Lesea le dikgwedi tse kae?"
+  ], 
+  "If you are HIV+ you can get SMSes with extra info for HIV+ moms. They may mention your status. Or, you can choose general SMSes only.": [
+    null, 
+    "Fa o le na le HIV, re tla go romela melaetsa ya tlaleletso. Di ka umaka maemo a gago. Kgotsa o ka amogela di SMS tsa kakaretso."
+  ], 
+  "If you have missed a period and have 1 or more of these, do a pregnancy test: nausea or vomiting; tender breasts; often tired.": [
+    null, 
+    "Fa o tlodilwe ke kgwedi ebile gongwe o feroga dibete, o tlhatsa, o tletse matsele kgotsa o ikutlwa o lapile; dira teko ya boimana. "
+  ], 
+  "In what month is your baby due?": [
+    null, 
+    "O lebeletse lesea ka kgwedi efeng? "
+  ], 
+  "Pregnant": [
+    null, 
+    "Mmeleng"
+  ], 
+  "Read more": [
+    null, 
+    "Bala go fetisa"
+  ], 
+  "Sorry, MAMA SMSs are aimed at mothers of younger babies. You can visit askmama.mobi to read useful info, and meet other moms. Stay well.": [
+    null, 
+    "Tshwarelo, MAMA SMSs di diretswe bomme ba masea a mannye. Etela askmama.mobi go bala ka tshedimosetso le go kopana le bomme ba bangwe. Tlhola sentle."
+  ], 
+  "Thanks for joining MAMA. We'll start SMSing you this week.": [
+    null, 
+    "Re lebogela go ikwadisetsa goMAMA. Re tla simolola go go romelela di SMS mo bekeng e."
+  ], 
+  "To sign up, we need to know which month. Please go to the clinic to find out, and dial us again.": [
+    null, 
+    "Go ikwadisa, re tlhoka go itse kgwedi. Ka kopo eya kliniking go itse, mme o re leletse gape."
+  ]
+}

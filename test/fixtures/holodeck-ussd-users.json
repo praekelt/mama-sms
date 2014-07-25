@@ -1,0 +1,7 @@
+{
+  "url": "http://holodeck.praekelt.com/api/store/",
+  "method": "POST",
+  "content_type": "application/json",
+  "data": {"api_key":"f10dd224e10c4693aad9e93b7b8ec0ef","samples":[["Registered Users",1],["Unique MSISDNs seen",10]],"timestamp":"2013-07-16 22:00:00"},
+  "body": {}
+}

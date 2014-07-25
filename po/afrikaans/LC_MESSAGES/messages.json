@@ -1,0 +1,75 @@
+{
+  "": {
+    "project_id_version": "MAMA SMS", 
+    "report_msgid_bugs_to": "", 
+    "pot_creation_date": "2013-11-19 20:05+0200", 
+    "po_revision_date": "2013-11-19 21:03+0200", 
+    "last_translator": "Simon de Haan <simon@praekeltfoundation.org>", 
+    "language_team": "Praekelt Foundation <mama@praekeltfoundation.org>", 
+    "mime_version": "1.0", 
+    "content_type": "text/plain; charset=UTF-8", 
+    "content_transfer_encoding": "8bit", 
+    "x_generator": "Poedit 1.5.7", 
+    "language": "Afrikaans"
+  }, 
+  "11 or more": [
+    null, 
+    "11 of meer"
+  ], 
+  "Are you pregnant, or do you have a baby?": [
+    null, 
+    "Is jy swanger, of het jy 'n baba? "
+  ], 
+  "Baby": [
+    null, 
+    "Baba"
+  ], 
+  "Don't know": [
+    null, 
+    "Ek weet nie"
+  ], 
+  "Don't wait! The first pregnancy check-up must happen as soon as you know. Do the test as soon as possible at any clinic, or get one at a pharmacy. Stay well.": [
+    null, 
+    "Moenie wag nie! Die eerste swangerskap ondersoek moet gedoen word sodra jy weet. Doen die toets so go as moontlik by enige kliniek of koop een by die apteek."
+  ], 
+  "General": [
+    null, 
+    "Algemeen"
+  ], 
+  "How many months old is your baby?": [
+    null, 
+    "Hoeveel maande is jou baba?"
+  ], 
+  "If you are HIV+ you can get SMSes with extra info for HIV+ moms. They may mention your status. Or, you can choose general SMSes only.": [
+    null, 
+    "As jy HIV+ is kan jy SMSe kry met informasie wat vir HIV+ ma's bedoel is. Hierdie SMSe mag jou status noem, of jy kan kies om algemene SMSe ontvang. "
+  ], 
+  "If you have missed a period and have 1 or more of these, do a pregnancy test: nausea or vomiting; tender breasts; often tired.": [
+    null, 
+    "As jy jou maandstonde gemis het en jy is naar of gooi op, of het sensitiewe borste, of is heeltyd moeg, doen 'n swangerskap toets"
+  ], 
+  "In what month is your baby due?": [
+    null, 
+    "In watter maand verwag jy jou baba? "
+  ], 
+  "Pregnant": [
+    null, 
+    "Swanger"
+  ], 
+  "Read more": [
+    null, 
+    "Lees verder"
+  ], 
+  "Sorry, MAMA SMSs are aimed at mothers of younger babies. You can visit askmama.mobi to read useful info, and meet other moms. Stay well.": [
+    null, 
+    "Jammer, MAMA SMSe is gemik op ma's van jonger babas. Jy kan askmama.mobi besoek om nutige informasie te kry en om ander moeders te ontmoet. Groete, van MAMA"
+  ], 
+  "Thanks for joining MAMA. We'll start SMSing you this week.": [
+    null, 
+    "Dankie dat jy by MAMA aangesluit het. Ons sal jou SMSe hierdie week stuur. "
+  ], 
+  "To sign up, we need to know which month. Please go to the clinic to find out, and dial us again.": [
+    null, 
+    "Om by die MAMA SMS program aan te sluit moet ons weet in watter maand jou baba kom. Gaan asseblief kliniek toe en vind uit, en skakel dan weer hierdie nommer. Dankie"
+  ]
+}

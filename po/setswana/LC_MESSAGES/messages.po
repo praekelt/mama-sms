@@ -1,0 +1,183 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mama-sms\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-19 20:05+0200\n"
+"PO-Revision-Date: 2013-11-19 20:54+0200\n"
+"Last-Translator: Simon de Haan <simon@praekeltfoundation.org>\n"
+"Language-Team: Praekelt Foundation <mama@praekeltfoundation.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"Language: Setswana\n"
+
+#: standard input:143
+msgid "Are you pregnant, or do you have a baby?"
+msgstr "A o mmeleng, kgotsa o na le lesea?"
+
+#: standard input:145
+msgid "Pregnant"
+msgstr "Mmeleng"
+
+#: standard input:146
+msgid "Baby"
+msgstr "Lesea"
+
+#: standard input:147 input:175
+msgid "Don't know"
+msgstr "Ga ke itse"
+
+#: standard input:160
+msgid "In what month is your baby due?"
+msgstr "O lebeletse lesea ka kgwedi efeng? "
+
+#: standard input:163
+msgid "Jan"
+msgstr ""
+
+#: standard input:164
+msgid "Feb"
+msgstr ""
+
+#: standard input:165
+msgid "Mar"
+msgstr ""
+
+#: standard input:166
+msgid "Apr"
+msgstr ""
+
+#: standard input:167
+msgid "May"
+msgstr ""
+
+#: standard input:168
+msgid "Jun"
+msgstr ""
+
+#: standard input:169
+msgid "Jul"
+msgstr ""
+
+#: standard input:170
+msgid "Aug"
+msgstr ""
+
+#: standard input:171
+msgid "Sep"
+msgstr ""
+
+#: standard input:172
+msgid "Oct"
+msgstr ""
+
+#: standard input:173
+msgid "Nov"
+msgstr ""
+
+#: standard input:174
+msgid "Dec"
+msgstr ""
+
+#: standard input:187
+msgid "How many months old is your baby?"
+msgstr "Lesea le dikgwedi tse kae?"
+
+#: standard input:199
+msgid "11 or more"
+msgstr "11 kgotsa go feta"
+
+#: standard input:206
+msgid ""
+"To get MAMA messages, we need to ask you 4 questions. What language would "
+"you like?"
+msgstr ""
+
+#: standard input:208
+msgid "English"
+msgstr ""
+
+#: standard input:209
+msgid "Zulu"
+msgstr ""
+
+#: standard input:210
+msgid "Xhosa"
+msgstr ""
+
+#: standard input:211
+msgid "Afrikaans"
+msgstr ""
+
+#: standard input:212
+msgid "Sotho"
+msgstr ""
+
+#: standard input:213
+msgid "Setswana"
+msgstr ""
+
+#: standard input:220
+msgid ""
+"If you are HIV+ you can get SMSes with extra info for HIV+ moms. They may "
+"mention your status. Or, you can choose general SMSes only."
+msgstr ""
+"Fa o le na le HIV, re tla go romela melaetsa ya tlaleletso. Di ka umaka "
+"maemo a gago. Kgotsa o ka amogela di SMS tsa kakaretso."
+
+#: standard input:222
+msgid "HIV"
+msgstr ""
+
+#: standard input:223
+msgid "General"
+msgstr ""
+
+#: standard input:230
+msgid ""
+"If you have missed a period and have 1 or more of these, do a pregnancy "
+"test: nausea or vomiting; tender breasts; often tired."
+msgstr ""
+"Fa o tlodilwe ke kgwedi ebile gongwe o feroga dibete, o tlhatsa, o tletse "
+"matsele kgotsa o ikutlwa o lapile; dira teko ya boimana. "
+
+#: standard input:232
+msgid "Read more"
+msgstr "Bala go fetisa"
+
+#: standard input:238
+msgid ""
+"Don't wait! The first pregnancy check-up must happen as soon as you know. Do "
+"the test as soon as possible at any clinic, or get one at a pharmacy. Stay "
+"well."
+msgstr ""
+"Se eme! Tlhatlhobo ya ntlha ya boimana e tshwanetse go dirwa ka bonako. Dira "
+"teko ka bonako ko kliniking kgotsa ko pharmacy. Tlhola sentle."
+
+#: standard input:244
+msgid ""
+"To sign up, we need to know which month. Please go to the clinic to find "
+"out, and dial us again."
+msgstr ""
+"Go ikwadisa, re tlhoka go itse kgwedi. Ka kopo eya kliniking go itse, mme o "
+"re leletse gape."
+
+#: standard input:250
+msgid ""
+"Sorry, MAMA SMSs are aimed at mothers of younger babies. You can visit "
+"askmama.mobi to read useful info, and meet other moms. Stay well."
+msgstr ""
+"Tshwarelo, MAMA SMSs di diretswe bomme ba masea a mannye. Etela askmama.mobi "
+"go bala ka tshedimosetso le go kopana le bomme ba bangwe. Tlhola sentle."
+
+#: standard input:328
+msgid "Thanks for joining MAMA. We'll start SMSing you this week."
+msgstr ""
+"Re lebogela go ikwadisetsa goMAMA. Re tla simolola go go romelela di SMS mo "
+"bekeng e."

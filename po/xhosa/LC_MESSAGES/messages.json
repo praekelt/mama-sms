@@ -1,0 +1,79 @@
+{
+  "": {
+    "project_id_version": "MAMA SMS", 
+    "report_msgid_bugs_to": "", 
+    "pot_creation_date": "2013-11-19 20:32+0200", 
+    "po_revision_date": "2013-11-19 20:59+0200", 
+    "last_translator": "Simon de Haan <simon@praekeltfoundation.org>", 
+    "language_team": "Praekelt Foundation <mama@praekeltfoundation.org>", 
+    "mime_version": "1.0", 
+    "content_type": "text/plain; charset=UTF-8", 
+    "content_transfer_encoding": "8bit", 
+    "x_generator": "Poedit 1.5.7", 
+    "language": "english"
+  }, 
+  "11 or more": [
+    null, 
+    "11 nangaphezulu"
+  ], 
+  "Are you pregnant, or do you have a baby?": [
+    null, 
+    "Ukhulelwe okanye unomntwana omncinci?"
+  ], 
+  "Baby": [
+    null, 
+    "Unomntwana"
+  ], 
+  "Don't know": [
+    null, 
+    "Andazi"
+  ], 
+  "Don't wait! The first pregnancy check-up must happen as soon as you know. Do the test as soon as possible at any clinic, or get one at a pharmacy. Stay well.": [
+    null, 
+    "Ukwazi kwakho nje uba ukhulelwe! Sukulinda. Hlola kwangoko ekliniki okanye ekhemesti. Hlal'uphilile."
+  ], 
+  "General": [
+    null, 
+    "Engena HIV"
+  ], 
+  "HIV": [
+    null, 
+    "Imiyalezo nge HIV"
+  ], 
+  "How many months old is your baby?": [
+    null, 
+    "Zingaphi inyanga zomntwana wakho?"
+  ], 
+  "If you are HIV+ you can get SMSes with extra info for HIV+ moms. They may mention your status. Or, you can choose general SMSes only.": [
+    null, 
+    "Ukuba uneHIV ungafumana imiyalezo eyenzelwe omama abane HIV. Bangayikhankanya okanye ufumane imiyalezo engakhankanyi HIV."
+  ], 
+  "If you have missed a period and have 1 or more of these, do a pregnancy test: nausea or vomiting; tender breasts; often tired.": [
+    null, 
+    "Ukuba akuyanga exesheni yaye unenye nangaphezulu kwezi mpawu: isicaphucaphu, uyagabha, amabele athambileyo, udinwa rhoqo. Hlolela ukukhulelwa."
+  ], 
+  "In what month is your baby due?": [
+    null, 
+    "Uzakubeleka ngeyiphi inyanga? "
+  ], 
+  "Pregnant": [
+    null, 
+    "Ukhulelwe"
+  ], 
+  "Read more": [
+    null, 
+    "Funda banzi"
+  ], 
+  "Sorry, MAMA SMSs are aimed at mothers of younger babies. You can visit askmama.mobi to read useful info, and meet other moms. Stay well.": [
+    null, 
+    "Uxolo, imiyalezo kaMAMA yenzelwe omama abanabantwana abancinci. Ungandwendwela ku askmama.mobi ngolwazi oluthe vetshe, uncokole nabanye omama. Hlal'uphilile."
+  ], 
+  "Thanks for joining MAMA. We'll start SMSing you this week.": [
+    null, 
+    "Enkosi ngokujoyina uMAMA. Sizakuqala ukukuthumelela imiyalezo kule veki."
+  ], 
+  "To sign up, we need to know which month. Please go to the clinic to find out, and dial us again.": [
+    null, 
+    "Ukuba sikufake kule nkqubo, kufanele sazi ukuba yeyiphi inyanga. Nceda uye ekliniki wandule ukusitsalela kwakhona."
+  ]
+}

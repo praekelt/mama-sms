@@ -1,0 +1,32 @@
+{
+  "name": "go-mama-sms",
+  "version": "0.0.1",
+  "description": "A Vumi Go USSD for allowing mothers to opt-in for SMS messaging.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "vumigo_v01": "0.1.x",
+    "jed": "0.5.x"
+  },
+  "devDependencies": {
+    "mocha": "~1.7.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/praekelt/mama-go"
+  },
+  "keywords": [
+    "vumi",
+    "ussd",
+    "sms",
+    "mama"
+  ],
+  "author": "Praekelt Foundation <dev@praekeltfoundation.org>",
+  "license": "BSD",
+  "readmeFilename": "README.rst"
+}
