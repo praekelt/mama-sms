@@ -5,7 +5,7 @@ var app = require("../lib/go-mama-sms");
 
 var success = vumigo.promise.success;
 
-MAX_CHAR_LENGTH = 163;
+MAX_CHAR_LENGTH = null;
 
 // This just checks that you hooked you InteractionMachine
 // up to the api correctly and called im.attach();
@@ -681,7 +681,7 @@ describe("Mama SMS application in multiple language", function() {
                 },
                 content: '1',
                 next_state: 'get_tested',
-                response: '^Don\'t wait! The first pregnancy',
+                response: '^Don\'t wait! The 1st pregnancy',
                 continue_session: false
             }).then(done, done);
         });
