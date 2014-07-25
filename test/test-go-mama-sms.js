@@ -5,6 +5,8 @@ var app = require("../lib/go-mama-sms");
 
 var success = vumigo.promise.success;
 
+MAX_CHAR_LENGTH = null;
+
 // This just checks that you hooked you InteractionMachine
 // up to the api correctly and called im.attach();
 describe("test api", function() {
@@ -172,7 +174,8 @@ describe('MAMA SMS from an STK', function () {
                 setup_groups(app, api);
                 setup_api(api);
             },
-            async: true
+            async: true,
+            max_response_length: MAX_CHAR_LENGTH
         });
 
         // patch the date functions to return predictable dates
@@ -271,7 +274,8 @@ describe("Mama SMS application in a default language", function() {
                 setup_groups(app, api);
                 setup_api(api);
             },
-            async: true
+            async: true,
+            max_response_length: MAX_CHAR_LENGTH
         });
 
         // patch the date functions to return predictable dates
@@ -364,7 +368,8 @@ describe("Mama SMS application in multiple language", function() {
                 setup_groups(app, api);
                 setup_api(api);
             },
-            async: true
+            async: true,
+            max_response_length: MAX_CHAR_LENGTH
         });
 
         // patch the date functions to return predictable dates
@@ -676,7 +681,7 @@ describe("Mama SMS application in multiple language", function() {
                 },
                 content: '1',
                 next_state: 'get_tested',
-                response: '^Don\'t wait! The first pregnancy',
+                response: '^Don\'t wait! The 1st pregnancy',
                 continue_session: false
             }).then(done, done);
         });
@@ -784,7 +789,8 @@ describe('MAMA SMS application without welcome SMS and opt-out reminder', functi
                 setup_groups(app, api);
                 setup_api(api);
             },
-            async: true
+            async: true,
+            max_response_length: MAX_CHAR_LENGTH
         });
 
         // patch the date functions to return predictable dates
@@ -837,7 +843,8 @@ describe('MAMA SMS application opt-status', function () {
                 setup_api(api);
                 api.optout('msisdn', '1234567');
             },
-            async: true
+            async: true,
+            max_response_length: MAX_CHAR_LENGTH
         });
     });
 
@@ -896,7 +903,8 @@ describe('MAMA SMS i18n', function () {
                 api.config_store['translation.afrikaans'] = locale_data.afrikaans;
                 setup_api(api);
             },
-            async: true
+            async: true,
+            max_response_length: MAX_CHAR_LENGTH
         });
     });
 
