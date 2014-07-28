@@ -458,11 +458,14 @@ describe("Mama SMS application in multiple language", function() {
             var p = tester.check_state({
                 user: {
                     current_state: 'expected_month',
+                    pages: {
+                        expected_month: 8
+                    },
                     answers: {
                         user_status: 'pregnant'
                     }
                 },
-                content: '13',
+                content: '5',
                 next_state: 'go_to_clinic',
                 response: 'To sign up, we need to know which month.',
                 continue_session: false
