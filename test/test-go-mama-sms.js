@@ -294,7 +294,7 @@ describe("Mama SMS application in a default language", function() {
             content: null,
             next_state: 'language_selection',
             response: (
-                '^To get MAMA messages, we need to ask you 3 questions. '+
+                '^To get MAMA messages, we need to ask you 2 questions. '+
                 'Would you like to continue and answer these\\?[^]' +
                 '1. Yes please[^]' +
                 '2. No thanks$'),
