@@ -608,7 +608,7 @@ describe("Mama SMS application in multiple language", function() {
                 },
                 content: '11',
                 next_state: 'too_old',
-                response: 'Sorry, MAMA SMSs are aimed at mothers of younger babies',
+                response: 'MAMA SMSs are aimed at mothers of younger babies',
                 continue_session: false
             }).then(done, done);
         });
