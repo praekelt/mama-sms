@@ -9,7 +9,6 @@ go.utils = {
         var current_date = self.get_current_date();
         var present_year = current_date.getFullYear();
         var present_month = current_date.getMonth();
-        var last_monday = self.get_last_monday();
         var year_offset = 0;
         if (m < present_month) year_offset = 1;
         var birth_date = new Date(present_year + year_offset, m, 15);
@@ -25,7 +24,6 @@ go.utils = {
         var m = parseInt(month, 10);
         var week = (m - 1) * 4 + 1;
         var current_date = self.get_current_date();
-        var last_monday = self.get_last_monday();
         var birth_date = new Date(current_date - (week * MILLISECONDS_IN_A_WEEK));
         return birth_date;
     },
@@ -64,7 +62,7 @@ go.utils = {
     get_poll_number: function(birth_date) {
         var weeks_to_go = self.calculate_weeks_remaining(birth_date);
         return 36 - weeks_to_go;
-    }
+    },
 
     get_seq_send_keys: function() {
         if(!im.config.sequential_send_keys) {
