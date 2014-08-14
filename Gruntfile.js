@@ -9,12 +9,20 @@ module.exports = function (grunt) {
             src: {
                 'app': {
                     'default': 'src/default.js',
+                    'rsa': 'src/default.js',
                     'kenya': 'src/kenya.js'
                 },
                 'default': [
                     'src/index.js',
                     'src/utils.js',
                     '<%= paths.src.app.default %>',
+                    'src/init.js'
+                ],
+                'rsa': [
+                    'src/index.js',
+                    'src/utils.js',
+                    '<%= paths.src.app.default %>',
+                    'src/holodeck.js',
                     'src/init.js'
                 ],
                 'kenya': [
@@ -29,10 +37,17 @@ module.exports = function (grunt) {
             },
             dest: {
                 'default': 'go-app-default.js',
+                'rsa': 'go-app-rsa.js',
                 'kenya': 'go-app-kenya.js'
             },
             test: {
                 'default': [
+                    'test/setup.js',
+                    'src/utils.js',
+                    '<%= paths.src.app.default %>',
+                    'test/default.test.js'
+                ],
+                'rsa': [
                     'test/setup.js',
                     'src/utils.js',
                     '<%= paths.src.app.default %>',
@@ -67,6 +82,10 @@ module.exports = function (grunt) {
                 src: ['<%= paths.src.default %>'],
                 dest: '<%= paths.dest.default %>'
             },
+            'rsa': {
+                src: ['<%= paths.src.rsa %>'],
+                dest: '<%= paths.dest.rsa %>'
+            },
             'kenya': {
                 src: ['<%= paths.src.kenya %>'],
                 dest: '<%= paths.dest.kenya %>'
@@ -79,6 +98,9 @@ module.exports = function (grunt) {
             },
             test_default: {
                 src: ['<%= paths.test.default %>']
+            },
+            test_rsa: {
+                src: ['<%= paths.test.rsa %>']
             },
             test_kenya: {
                 src: ['<%= paths.test.kenya %>']
