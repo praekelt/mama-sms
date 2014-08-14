@@ -1,6 +1,6 @@
 {
   "name": "go-mama-sms",
-  "version": "0.2",
+  "version": "0.2.0",
   "description": "A Vumi Go USSD for allowing mothers to opt-in for SMS messaging.",
   "main": "lib/app.js",
   "scripts": {
