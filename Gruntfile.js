@@ -10,7 +10,8 @@ module.exports = function (grunt) {
                 'app': {
                     'default': 'src/default.js',
                     'rsa': 'src/default.js',
-                    'kenya': 'src/kenya.js'
+                    'kenya': 'src/kenya.js',
+                    'utils': 'src/utils.js'
                 },
                 'default': [
                     'src/index.js',
@@ -30,6 +31,10 @@ module.exports = function (grunt) {
                     'src/utils.js',
                     '<%= paths.src.app.kenya %>',
                     'src/init.js'
+                ],
+                'utils': [
+                    'src/index.js',
+                    'src/utils.js'
                 ],
                 'all': [
                     'src/**/*.js'
@@ -58,6 +63,12 @@ module.exports = function (grunt) {
                     'src/utils.js',
                     '<%= paths.src.app.kenya %>',
                     'test/kenya.test.js'
+                ],
+                'utils': [
+                    'test/setup.js',
+                    'src/utils.js',
+                    '<%= paths.src.app.utils %>',
+                    'test/utils.test.js'
                 ]
             }
         },
@@ -104,6 +115,9 @@ module.exports = function (grunt) {
             },
             test_kenya: {
                 src: ['<%= paths.test.kenya %>']
+            },
+            test_utils :{
+                src: ['<%= paths.test.utils %>']
             }
         }
     });
