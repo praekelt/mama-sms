@@ -1,23 +1,23 @@
 var go = {};
 go;
 
-var SECONDS_IN_A_DAY = 24 * 60 * 60;
-var MILLISECONDS_IN_A_DAY = SECONDS_IN_A_DAY * 1000;
-var MILLISECONDS_IN_A_WEEK = MILLISECONDS_IN_A_DAY * 7;
+go.SECONDS_IN_A_DAY = 24 * 60 * 60;
+go.MILLISECONDS_IN_A_DAY = go.SECONDS_IN_A_DAY * 1000;
+go.MILLISECONDS_IN_A_WEEK = go.MILLISECONDS_IN_A_DAY * 7;
 
 go.utils = {
 
     month_of_year_to_week: function(month) {
         var m = parseInt(month, 10);
-        var current_date = self.get_current_date();
+        var current_date = this.get_current_date();
         var present_year = current_date.getFullYear();
         var present_month = current_date.getMonth();
         var year_offset = 0;
         if (m < present_month) year_offset = 1;
         var birth_date = new Date(present_year + year_offset, m, 15);
-        var check_poll_number = self.get_poll_number(birth_date);
+        var check_poll_number = this.get_poll_number(birth_date);
         if (check_poll_number < 1) {
-            var corrected_date = birth_date - ((1 - check_poll_number) * MILLISECONDS_IN_A_WEEK);
+            var corrected_date = birth_date - ((1 - check_poll_number) * go.MILLISECONDS_IN_A_WEEK);
             birth_date = new Date(corrected_date);
         }
         return birth_date;
@@ -26,8 +26,8 @@ go.utils = {
     months_to_week: function(month) {
         var m = parseInt(month, 10);
         var week = (m - 1) * 4 + 1;
-        var current_date = self.get_current_date();
-        var birth_date = new Date(current_date - (week * MILLISECONDS_IN_A_WEEK));
+        var current_date = this.get_current_date();
+        var birth_date = new Date(current_date - (week * go.MILLISECONDS_IN_A_WEEK));
         return birth_date;
     },
 
@@ -36,7 +36,7 @@ go.utils = {
     },
 
     get_today_as_string: function() {
-        var today_iso = self.get_current_date().toISOString();
+        var today_iso = this.get_current_date().toISOString();
         return today_iso.split('T')[0];
     },
 
@@ -51,19 +51,19 @@ go.utils = {
     },
 
     get_last_monday: function() {
-        var current_date = self.get_current_date();
+        var current_date = this.get_current_date();
         var offset = current_date.getDay();
-        var monday = current_date - (offset * MILLISECONDS_IN_A_DAY);
+        var monday = current_date - (offset * go.MILLISECONDS_IN_A_DAY);
         return new Date(monday);
     },
 
     calculate_weeks_remaining: function(birth_date) {
-        var milliseconds_to_go = birth_date - self.get_last_monday();
-        return Math.floor(milliseconds_to_go / MILLISECONDS_IN_A_WEEK);
+        var milliseconds_to_go = birth_date - this.get_last_monday();
+        return Math.floor(milliseconds_to_go / go.MILLISECONDS_IN_A_WEEK);
     },
 
     get_poll_number: function(birth_date) {
-        var weeks_to_go = self.calculate_weeks_remaining(birth_date);
+        var weeks_to_go = this.calculate_weeks_remaining(birth_date);
         return 36 - weeks_to_go;
     },
 

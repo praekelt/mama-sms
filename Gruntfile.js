@@ -15,12 +15,14 @@ module.exports = function (grunt) {
                 },
                 'default': [
                     'src/index.js',
+                    'src/constants.js',
                     'src/utils.js',
                     '<%= paths.src.app.default %>',
                     'src/init.js'
                 ],
                 'rsa': [
                     'src/index.js',
+                    'src/constants.js',
                     'src/utils.js',
                     '<%= paths.src.app.default %>',
                     'src/holodeck.js',
@@ -28,12 +30,14 @@ module.exports = function (grunt) {
                 ],
                 'kenya': [
                     'src/index.js',
+                    'src/constants.js',
                     'src/utils.js',
                     '<%= paths.src.app.kenya %>',
                     'src/init.js'
                 ],
                 'utils': [
                     'src/index.js',
+                    'src/constants.js',
                     'src/utils.js'
                 ],
                 'all': [
@@ -48,24 +52,28 @@ module.exports = function (grunt) {
             test: {
                 'default': [
                     'test/setup.js',
+                    'src/constants.js',
                     'src/utils.js',
                     '<%= paths.src.app.default %>',
                     'test/default.test.js'
                 ],
                 'rsa': [
                     'test/setup.js',
+                    'src/constants.js',
                     'src/utils.js',
                     '<%= paths.src.app.default %>',
                     'test/default.test.js'
                 ],
                 'kenya': [
                     'test/setup.js',
+                    'src/constants.js',
                     'src/utils.js',
                     '<%= paths.src.app.kenya %>',
                     'test/kenya.test.js'
                 ],
                 'utils': [
                     'test/setup.js',
+                    'src/constants.js',
                     'src/utils.js',
                     '<%= paths.src.app.utils %>',
                     'test/utils.test.js'
