@@ -43,9 +43,9 @@ go.utils = {
         return date + " " + hms;
     },
 
-    get_last_monday: function() {
-        var current_date = this.get_current_date();
-        var offset = current_date.getDay();
+    get_last_monday: function(date) {
+        var current_date = date || this.get_current_date();
+        var offset = current_date.getDay() - 1 || 7;
         var monday = current_date - (offset * go.MILLISECONDS_IN_A_DAY);
         return new Date(monday);
     },

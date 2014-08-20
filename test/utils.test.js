@@ -44,7 +44,17 @@ describe("go.utils", function() {
             go.utils.get_holodeck_timestamp(),
             '2014-09-01 00:00:00');
     });
-    it('should calculate when last monday was');
+    it('should calculate when last monday was on monday', function () {
+        assert.equal(
+            go.utils.get_last_monday().toISOString(),
+            '2014-08-25T00:00:00.000Z');
+    });
+    it('should calculate when last monday was on a not monday', function () {
+        assert.equal(
+            go.utils.get_last_monday(
+                moment.utc('2014-09-02T00:00:00+00:00').toDate()).toISOString(),
+            '2014-09-01T00:00:00.000Z');
+    });
     it('should return the week number when given a birth date');
     it('should provide a helper function for getting the seq-send keys');
     it('should provide a helper for sending an SMS');
