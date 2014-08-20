@@ -14,11 +14,11 @@ describe("go.utils", function() {
         // December, still in 2014
         assert.equal(
             go.utils.month_of_year_to_week('11').toISOString(),
-            '2014-12-14T22:00:00.000Z');
+            '2014-12-15T00:00:00.000Z');
         // January, should roll over into 2015
         assert.equal(
             go.utils.month_of_year_to_week('0').toISOString(),
-            '2015-01-14T22:00:00.000Z');
+            '2015-01-15T00:00:00.000Z');
     });
 
     it('should calculate the week when given a month', function () {

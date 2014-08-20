@@ -14,7 +14,7 @@ go.utils = {
         var present_month = current_date.getMonth();
         var year_offset = 0;
         if (m < present_month) year_offset = 1;
-        var birth_date = new Date(present_year + year_offset, m, 15);
+        var birth_date = new Date(Date.UTC(present_year + year_offset, m, 15));
         var check_poll_number = this.get_poll_number(birth_date);
         if (check_poll_number < 1) {
             var corrected_date = birth_date - ((1 - check_poll_number) * go.MILLISECONDS_IN_A_WEEK);
