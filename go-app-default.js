@@ -43,7 +43,7 @@ go.utils = {
     get_holodeck_timestamp: function() {
         // NOTE:    this is why any datestamp format other than ISO8601
         //          is a bad idea.
-        var today = self.get_current_date().toISOString();
+        var today = this.get_current_date().toISOString();
         var parts = today.split('T');
         var date = parts[0];
         var hms = parts[1].split('.')[0];

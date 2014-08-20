@@ -39,7 +39,11 @@ describe("go.utils", function() {
             go.utils.get_today_as_string(),
             '2014-09-01');
     });
-    it('should return a holodeck compatible timestamp');
+    it('should return a holodeck compatible timestamp', function () {
+        assert.equal(
+            go.utils.get_holodeck_timestamp(),
+            '2014-09-01 00:00:00');
+    });
     it('should calculate when last monday was');
     it('should return the week number when given a birth date');
     it('should provide a helper function for getting the seq-send keys');
