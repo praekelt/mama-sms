@@ -60,6 +60,7 @@ go.utils = {
         return 36 - weeks_to_go;
     },
 
+    /*
     get_seq_send_keys: function() {
         if(!im.config.sequential_send_keys) {
             throw new MamaSMSError('sequential_send_keys config value missing');
@@ -79,4 +80,5 @@ go.utils = {
             tag: sms_tag[1]
         });
     }
+    */
 };

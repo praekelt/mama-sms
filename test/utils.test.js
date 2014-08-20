@@ -55,7 +55,36 @@ describe("go.utils", function() {
                 moment.utc('2014-09-02T00:00:00+00:00').toDate()).toISOString(),
             '2014-09-01T00:00:00.000Z');
     });
-    it('should return the week number when given a birth date');
+    it('should return the week number when given birth date is today', function () {
+        assert.equal(
+            go.utils.calculate_weeks_remaining(
+                moment.utc('2014-09-01T00:00:00.000Z').toDate()),
+            1);
+    });
+    it('should return the week number when given birth date 9 months away', function () {
+        assert.equal(
+            go.utils.calculate_weeks_remaining(
+                moment.utc('2015-06-01T00:00:00.000Z').toDate()),
+            40);
+    });
+    it('should return the week number when given birth date 3 months away', function () {
+        assert.equal(
+            go.utils.calculate_weeks_remaining(
+                moment.utc('2014-12-01T00:00:00.000Z').toDate()),
+            14);
+    });
+    it('should return the week number when given birth date 6 months away', function () {
+        assert.equal(
+            go.utils.calculate_weeks_remaining(
+                moment.utc('2015-03-01T00:00:00.000Z').toDate()),
+            26);
+    });
+    it('should return the week number when given a past birth date', function () {
+        assert.equal(
+            go.utils.calculate_weeks_remaining(
+                moment.utc('2014-08-18T00:00:00.000Z').toDate()),
+            -1);
+    });
     it('should provide a helper function for getting the seq-send keys');
     it('should provide a helper for sending an SMS');
 });
