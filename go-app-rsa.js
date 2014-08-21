@@ -12,13 +12,16 @@ go.utils = {
         var current_date = this.get_current_date();
         var present_year = current_date.getFullYear();
         var present_month = current_date.getMonth();
-        var year_offset = 0;
-        if (m < present_month) year_offset = 1;
+
+        // 9 month cut off for rolling over into next year.
+        var year_offset = (m < present_month && (present_month - m) > 3)
+                          ? 1 : 0;
+
         var birth_date = new Date(Date.UTC(present_year + year_offset, m, 15));
         var check_poll_number = this.get_poll_number(birth_date);
         if (check_poll_number < 1) {
             var corrected_date = birth_date - ((1 - check_poll_number) * go.MILLISECONDS_IN_A_WEEK);
-            birth_date = new Date(corrected_date);
+            birth_date = new Date(corrected_date + new Date().getTimezoneOffset());
         }
         return birth_date;
     },

@@ -10,15 +10,28 @@ describe("go.utils", function() {
         };
     });
 
-    it('should calculate the week of year when given a month', function() {
+    it('should calculate the week of year when given a month in this year', function() {
         // December, still in 2014
         assert.equal(
             go.utils.month_of_year_to_week('11').toISOString(),
             '2014-12-15T00:00:00.000Z');
+    });
+
+    it('should calculate the week of year when given a month in next year', function() {
         // January, should roll over into 2015
         assert.equal(
             go.utils.month_of_year_to_week('0').toISOString(),
             '2015-01-15T00:00:00.000Z');
+    });
+
+    it('should calculate the week of year when given a month in past year', function() {
+        // May should roll over into 2015
+        assert.equal(
+            go.utils.month_of_year_to_week('4').getFullYear(), 2015);
+        // June should still be 2014
+        assert.equal(
+            go.utils.month_of_year_to_week('5').getFullYear(), 2014);
+
     });
 
     it('should calculate the week when given a month', function () {
