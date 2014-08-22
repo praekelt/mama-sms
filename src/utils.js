@@ -82,6 +82,7 @@ go.utils = {
       tagpool: sms_tag[0],
       tag: sms_tag[1]
     });
-  }
+  },
   */
+  'bloody trailing': 'commas'
 };
