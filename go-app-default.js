@@ -215,6 +215,51 @@ go.app = function() {
         text: $('You remain opted-out of MAMA.')
       })
     );
+
+    self.states.add('language_selection', function (name, opts) {
+      return new ChoiceState(name, {
+        question: (
+          self.im.config.custom_opening_copy || $(
+          'To get MAMA messages, we need to ask you 4 questions. ' +
+          'What language would you like?')),
+        choices: [
+          new Choice('english', 'English'),
+          new Choice('zulu', 'Zulu'),
+          new Choice('xhosa', 'Xhosa'),
+          new Choice('afrikaans', 'Afrikaans'),
+          new Choice('sotho', 'Sotho'),
+          new Choice('setswana', 'Setswana')
+        ],
+        next: 'user_status'
+      });
+    });
+
+    self.states.add('default_language', function (name, opts) {
+      return new ChoiceState(name, {
+        question: (
+          self.im.config.custom_opening_copy || $(
+            'To get MAMA messages, we need to ask you 2 questions. ' +
+            'Would you like to continue and answer these?')),
+        choices: [
+          new Choice('yes', $('Yes please')),
+          new Choice('no', $('No thanks'))
+        ],
+        next: function(choice) {
+          return {
+            'yes': 'user_status',
+            'no': 'cancel'
+          }[choice.value];
+        }
+      });
+    });
+
+    self.states.add('cancel',
+      self.make_fake_exit_menu({
+        next: 'states_start',
+        text: $("To receive MAMA SMSs you will need to answer the questions.")
+      })
+    );
+
   });
 
   return {
