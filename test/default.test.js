@@ -69,6 +69,70 @@ describe("MAMA SMS", function() {
 
     });
 
+    describe('with a custom opening copy', function () {
+      beforeEach(function () {
+        tester
+          .setup.config.app({
+            custom_opening_copy: 'foo bar baz'
+          });
+      });
+
+      it('should ask for the language preference with custom opening copy',
+        function () {
+          return tester
+            .start()
+            .check.interaction({
+              state: 'language_selection',
+              reply: /foo bar baz/
+            })
+            .run();
+        });
+
+      it('should select the default language if specified with custom opening', function () {
+        return tester
+          .setup.config.app({
+            default_language: 'en'
+          })
+          .start()
+          .check.interaction({
+            state: 'default_language',
+            reply: /foo bar baz/
+          })
+          .run();
+      });
+    });
+
+    describe('with a default language specified', function () {
+
+      beforeEach(function () {
+        tester
+          .setup.config.app({
+            default_language: 'en'
+          });
+      });
+
+      it('should go straight to the first screen', function () {
+        return tester
+          .start()
+          .check.interaction({
+            state: 'default_language',
+            reply: /To get MAMA messages, we need to ask you 2 questions/
+          })
+          .run();
+      });
+
+      it('should allow the user to cancel', function () {
+        return tester
+          .setup.user.state('default_language')
+          .input('2')
+          .check.interaction({
+            state: 'cancel',
+            reply: /To receive MAMA SMSs you will need to answer the questions/
+          })
+          .run();
+      });
+    });
+
     it('should ask for the language preference', function () {
       return tester
         .start()
@@ -79,57 +143,13 @@ describe("MAMA SMS", function() {
         .run();
     });
 
-    it('should ask for the language preference with custom opening copy',
-      function () {
-        return tester
-          .setup.config.app({
-            custom_opening_copy: 'foo bar baz'
-          })
-          .start()
-          .check.interaction({
-            state: 'language_selection',
-            reply: /foo bar baz/
-          })
-          .run();
-      });
-
-    it('should select the default language if specified', function () {
+    it('should go to the pregnancy questions when selecting a language', function () {
       return tester
-        .setup.config.app({
-          default_language: 'en'
-        })
-        .start()
+        .setup.user.state('language_selection')
+        .input('1')
         .check.interaction({
-          state: 'default_language',
-          reply: /To get MAMA messages, we need to ask you 2 questions/
-        })
-        .run();
-    });
-
-    it('should select the default language if specified with custom opening', function () {
-      return tester
-        .setup.config.app({
-          custom_opening_copy: 'foo bar baz',
-          default_language: 'en'
-        })
-        .start()
-        .check.interaction({
-          state: 'default_language',
-          reply: /foo bar baz/
-        })
-        .run();
-    });
-
-    it('should allow the user to cancel when given a default language', function () {
-      return tester
-        .setup.config.app({
-          default_language: 'en'
-        })
-        .setup.user.state('default_language')
-        .input('2')
-        .check.interaction({
-          state: 'cancel',
-          reply: /To receive MAMA SMSs you will need to answer the questions/
+          state: 'user_status',
+          reply: /Are you pregnant, or do you have a baby\?/
         })
         .run();
     });
