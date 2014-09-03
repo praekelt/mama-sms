@@ -334,10 +334,17 @@ go.app = function() {
           if(choice.value == 11) {
             return 'too_old';
           }
-          return im.config.skip_hiv_messages ? 'end' : 'hiv_messages';
+          return self.im.config.skip_hiv_messages ? 'end' : 'hiv_messages';
         }
       });
     });
+
+    self.states.add('too_old', self.make_fake_exit_menu({
+      next: 'states_start',
+      text: $("MAMA SMSs are aimed at mothers of younger babies. You can " +
+             "visit askmama.mobi to read useful info, and meet other moms. " +
+             "Stay well.")
+    }));
 
     self.states.add('hiv_messages', function (name, opts) {
       return new ChoiceState(name, {

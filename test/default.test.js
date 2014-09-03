@@ -163,7 +163,7 @@ describe("MAMA SMS", function() {
           });
         });
 
-        it('should end if not providing HIV specific messaging', function () {
+        it('should end after having supplied the DOB', function () {
           return tester
             .setup.config.app({
               skip_hiv_messages: true
@@ -226,19 +226,31 @@ describe("MAMA SMS", function() {
           })
           .run();
       });
-
-      it('should end when having answered the HIV+ question', function () {
-        return tester
-          .setup.user.state('hiv_messages')
-          .input('1')
-          .check.interaction({
-            state: 'end'
-          })
-          .run();
-      });
     });
 
     describe('post-natal registration', function () {
+
+      describe('without HIV specific messaging', function () {
+        beforeEach(function () {
+          tester.setup.config.app({
+            skip_hiv_messages: true
+          });
+        });
+
+        it('should end when having supplied the initial_age', function () {
+          return tester
+            .setup.config.app({
+              skip_hiv_messages: true
+            })
+            .setup.user.state('initial_age')
+            .input('1')
+            .check.interaction({
+              state: 'end',
+              reply: /Thanks for joining MAMA. We\'ll start SMSing you this week./
+            })
+            .run();
+        });
+      });
 
       it('should ask the initial age when baby already born', function () {
         return tester
@@ -251,6 +263,27 @@ describe("MAMA SMS", function() {
           .run();
       });
 
+      it('should notify the mother then the baby is too old', function () {
+        return tester
+          .setup.user.state('initial_age')
+          .input('11')
+          .check.interaction({
+            state: 'too_old',
+            reply: /MAMA SMSs are aimed at mothers of younger babies./
+          })
+          .run();
+      });
+
+      it('should ask for HIV specific messaging opt-in when supplying initial age', function () {
+        return tester
+          .setup.user.state('initial_age')
+          .input('1')
+          .check.interaction({
+            state: 'hiv_messages',
+            reply: /If you are HIV\+ you can get SMSes with extra info/
+          })
+          .run();
+      });
     });
 
     describe('when not sure about pregnancy', function () {
@@ -281,5 +314,16 @@ describe("MAMA SMS", function() {
           .run();
       });
     });
+
+    it('should end when having answered the HIV+ opt-in question', function () {
+      return tester
+        .setup.user.state('hiv_messages')
+        .input('1')
+        .check.interaction({
+          state: 'end'
+        })
+        .run();
+    });
+
   });
 });
