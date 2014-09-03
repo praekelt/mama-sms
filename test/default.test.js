@@ -154,5 +154,65 @@ describe("MAMA SMS", function() {
         .run();
     });
 
+    it('should ask the expected month when pregnant', function () {
+      return tester
+        .setup.user.state('user_status')
+        .input('1')
+        .check.interaction({
+          state: 'expected_month',
+          reply: [
+            'In what month is your baby due?',
+            '1. Jan',
+            '2. Feb',
+            '3. Mar',
+            '4. Apr',
+            '5. May',
+            '6. Jun',
+            '7. Jul',
+            '8. Aug',
+            '9. More'
+          ].join('\n')
+        })
+        .run();
+    });
+
+    it('should ask the initial age when baby already born', function () {
+      return tester
+        .setup.user.state('user_status')
+        .input('2')
+        .check.interaction({
+          state: 'initial_age',
+          reply: /How many months old is your baby\?/
+        })
+        .run();
+    });
+
+    it('should recommend a pregnancy test if the mother is not sure', function () {
+      return tester
+        .setup.user.state('user_status')
+        .input('3')
+        .check.interaction({
+          state: 'missed_period',
+          reply: /If you have missed a period/
+        })
+        .run();
+    });
+
+    it('should recommend getting tested if the mother is not sure', function () {
+      return tester
+        .setup.user.state('missed_period')
+        .input('1')
+        .check.interaction({
+          state: 'get_tested',
+          reply: [
+            "Don't wait! The 1st pregnancy check-up must happen soon. ",
+            "Do the test as soon as possible at a clinic, ",
+            "or get 1 at a pharmacy."
+          ].join("")
+        })
+        .run();
+    });
+
+
   });
 });

@@ -103,6 +103,7 @@ go.app = function() {
     App.call(self, 'states_start');
     var Choice = vumigo.states.Choice;
     var ChoiceState = vumigo.states.ChoiceState;
+    var PaginatedChoiceState = vumigo.states.PaginatedChoiceState;
     var EndState = vumigo.states.EndState;
 
     var $ = self.$;
@@ -278,6 +279,74 @@ go.app = function() {
       });
     });
 
+    self.states.add('expected_month', function (name, opts) {
+      return new PaginatedChoiceState(name, {
+        question: $('In what month is your baby due?'),
+        choices: [
+          // Javascript months are counted from zero.
+          new Choice(0, $('Jan')),
+          new Choice(1, $('Feb')),
+          new Choice(2, $('Mar')),
+          new Choice(3, $('Apr')),
+          new Choice(4, $('May')),
+          new Choice(5, $('Jun')),
+          new Choice(6, $('Jul')),
+          new Choice(7, $('Aug')),
+          new Choice(8, $('Sep')),
+          new Choice(9, $('Oct')),
+          new Choice(10, $('Nov')),
+          new Choice(11, $('Dec')),
+          new Choice('unknown', $('Don\'t know'))
+        ],
+        options_per_age: 7
+      });
+    });
+
+    self.states.add('initial_age', function (name, opts) {
+      return new ChoiceState(name, {
+        question: $('How many months old is your baby?'),
+        choices: [
+            new Choice(1, '1'),
+            new Choice(2, '2'),
+            new Choice(3, '3'),
+            new Choice(4, '4'),
+            new Choice(5, '5'),
+            new Choice(6, '6'),
+            new Choice(7, '7'),
+            new Choice(8, '8'),
+            new Choice(9, '9'),
+            new Choice(10, '10'),
+            new Choice(11, $('11 or more'))
+        ],
+        next: function (choice) {
+          if(choice.value == 11) {
+            return 'too_old';
+          }
+          return im.config.skip_hiv_messages ? 'end' : 'hiv_messages';
+        }
+      });
+    });
+
+    self.states.add('missed_period', function (name, opts) {
+      return new ChoiceState(name, {
+        question: $(
+          'If you have missed a period and have 1 or more of these, do a ' +
+          'pregnancy test: nausea or vomiting; tender breasts; often tired.'),
+        choices: [
+          new Choice('more', $('Read more'))
+        ],
+        next: 'get_tested'
+      });
+    });
+
+    self.states.add('get_tested',
+      self.make_fake_exit_menu({
+        next: 'states_start',
+        text: $(
+          "Don't wait! The 1st pregnancy check-up must happen soon. " +
+          "Do the test as soon as possible at a clinic, " +
+          "or get 1 at a pharmacy.")
+      }));
   });
 
   return {
