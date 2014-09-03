@@ -300,7 +300,6 @@ go.app = function() {
         ],
         options_per_age: 7,
         next: function (choice) {
-          console.log('choice!!', choice.value, choice.label);
           if(choice.value == 'unknown') {
             return 'go_to_clinic';
           }

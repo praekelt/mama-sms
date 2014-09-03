@@ -154,28 +154,6 @@ describe("MAMA SMS", function() {
         .run();
     });
 
-    it('should ask the expected month when pregnant', function () {
-      return tester
-        .setup.user.state('user_status')
-        .input('1')
-        .check.interaction({
-          state: 'expected_month',
-          reply: [
-            'In what month is your baby due?',
-            '1. Jan',
-            '2. Feb',
-            '3. Mar',
-            '4. Apr',
-            '5. May',
-            '6. Jun',
-            '7. Jul',
-            '8. Aug',
-            '9. More'
-          ].join('\n')
-        })
-        .run();
-    });
-
     describe('pre-natal registration', function () {
 
       describe('without HIV specific messaging', function () {
@@ -198,6 +176,28 @@ describe("MAMA SMS", function() {
             })
             .run();
         });
+      });
+
+      it('should ask the expected month when pregnant', function () {
+        return tester
+          .setup.user.state('user_status')
+          .input('1')
+          .check.interaction({
+            state: 'expected_month',
+            reply: [
+              'In what month is your baby due?',
+              '1. Jan',
+              '2. Feb',
+              '3. Mar',
+              '4. Apr',
+              '5. May',
+              '6. Jun',
+              '7. Jul',
+              '8. Aug',
+              '9. More'
+            ].join('\n')
+          })
+          .run();
       });
 
       it('should recommend going to the clinic when unsure about DOB', function () {
@@ -238,15 +238,19 @@ describe("MAMA SMS", function() {
       });
     });
 
-    it('should ask the initial age when baby already born', function () {
-      return tester
-        .setup.user.state('user_status')
-        .input('2')
-        .check.interaction({
-          state: 'initial_age',
-          reply: /How many months old is your baby\?/
-        })
-        .run();
+    describe('post-natal registration', function () {
+
+      it('should ask the initial age when baby already born', function () {
+        return tester
+          .setup.user.state('user_status')
+          .input('2')
+          .check.interaction({
+            state: 'initial_age',
+            reply: /How many months old is your baby\?/
+          })
+          .run();
+      });
+
     });
 
     describe('when not sure about pregnancy', function () {
