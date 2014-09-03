@@ -1,5 +1,6 @@
 var vumigo = require('vumigo_v02');
 var assert = require('assert');
+var _ = require('lodash');
 var AppTester = vumigo.AppTester;
 
 var optout = require('./resource.optout.js');
@@ -320,7 +321,32 @@ describe("MAMA SMS", function() {
         .setup.user.state('hiv_messages')
         .input('1')
         .check.interaction({
-          state: 'end'
+          state: 'end',
+          reply: /Thanks for joining MAMA. We\'ll start SMSing you this week./
+        })
+        .run();
+    });
+
+    it('should send a welcome SMS on ending if configured', function () {
+      return tester
+        .setup.config.app({
+          welcome_sms_copy: 'This is the welcome SMS.',
+          endpoints: {
+              "sms": {"delivery_class": "sms"}
+          }
+        })
+        .setup.user.state('hiv_messages')
+        .input('1')
+        .check.interaction({
+          state: 'end',
+          reply: /Thanks for joining MAMA. We\'ll start SMSing you this week./
+        })
+        .check(function (api) {
+          var smses = _.where(api.outbound.store, {
+              endpoint: 'sms'
+          });
+          assert.equal(smses.length, 1);
+          assert.equal(smses[0].content, 'This is the welcome SMS.');
         })
         .run();
     });

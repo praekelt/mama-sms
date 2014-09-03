@@ -303,7 +303,7 @@ go.app = function() {
           if(choice.value == 'unknown') {
             return 'go_to_clinic';
           }
-          return self.im.config.skip_hiv_messages ? 'end' : 'hiv_messages';
+          return self.im.config.skip_hiv_messages ? 'close' : 'hiv_messages';
         }
       });
     });
@@ -334,7 +334,7 @@ go.app = function() {
           if(choice.value == 11) {
             return 'too_old';
           }
-          return self.im.config.skip_hiv_messages ? 'end' : 'hiv_messages';
+          return self.im.config.skip_hiv_messages ? 'close' : 'hiv_messages';
         }
       });
     });
@@ -355,7 +355,7 @@ go.app = function() {
           new Choice('hiv', $('HIV')),
           new Choice('general', $('General'))
         ],
-        next: 'end'
+        next: 'close'
       });
     });
 
@@ -379,6 +379,10 @@ go.app = function() {
           "Do the test as soon as possible at a clinic, " +
           "or get 1 at a pharmacy.")
       }));
+
+    self.states.add('close', function (name, opts) {
+      return self.states.create('end');
+    });
 
     self.states.add('end',
       self.make_fake_exit_menu({
