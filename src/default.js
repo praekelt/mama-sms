@@ -9,6 +9,7 @@ go.app = function() {
     var ChoiceState = vumigo.states.ChoiceState;
     var PaginatedChoiceState = vumigo.states.PaginatedChoiceState;
     var EndState = vumigo.states.EndState;
+    var Q = require('q');
 
     var $ = self.$;
 
@@ -285,7 +286,16 @@ go.app = function() {
       }));
 
     self.states.add('close', function (name, opts) {
-      return self.states.create('end');
+      var p = self.im.config.welcome_sms_copy
+              ? self.im.outbound.send_to_user({
+                endpoint: 'sms',
+                content: self.im.config.welcome_sms_copy
+              }) : Q(true);
+
+      return p
+        .then(function () {
+          return self.states.create('end');
+        });
     });
 
     self.states.add('end',
