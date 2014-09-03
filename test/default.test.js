@@ -1,5 +1,6 @@
 var vumigo = require('vumigo_v02');
 var assert = require('assert');
+var moment = require('moment');
 var _ = require('lodash');
 var AppTester = vumigo.AppTester;
 
@@ -14,6 +15,11 @@ describe("MAMA SMS", function() {
     beforeEach(function() {
       app = new go.app.GoMAMA();
       tester = new AppTester(app);
+
+      // patch the date we're working with in tests.
+      go.utils.get_current_date = function() {
+        return moment.utc('2014-09-01T00:00:00+00:00').toDate();
+      };
 
       tester
         .setup(function(api) {
@@ -169,6 +175,11 @@ describe("MAMA SMS", function() {
             .setup.config.app({
               skip_hiv_messages: true
             })
+            .setup.user.answers({
+              'user_status': 'pregnant',
+              'expected_month': '10',
+              'language_selection': 'en'
+            })
             .setup.user.state('expected_month')
             .input('1')
             .check.interaction({
@@ -243,6 +254,11 @@ describe("MAMA SMS", function() {
             .setup.config.app({
               skip_hiv_messages: true
             })
+            .setup.user.answers({
+              'user_status': 'pregnant',
+              'expected_month': '10',
+              'language_selection': 'en'
+            })
             .setup.user.state('initial_age')
             .input('1')
             .check.interaction({
@@ -316,40 +332,73 @@ describe("MAMA SMS", function() {
       });
     });
 
-    it('should end when having answered the HIV+ opt-in question', function () {
-      return tester
-        .setup.user.state('hiv_messages')
-        .input('1')
-        .check.interaction({
-          state: 'end',
-          reply: /Thanks for joining MAMA. We\'ll start SMSing you this week./
-        })
-        .run();
-    });
+    describe('menu ending scenario', function () {
 
-    it('should send a welcome SMS on ending if configured', function () {
-      return tester
-        .setup.config.app({
-          welcome_sms_copy: 'This is the welcome SMS.',
-          endpoints: {
-              "sms": {"delivery_class": "sms"}
-          }
-        })
-        .setup.user.state('hiv_messages')
-        .input('1')
-        .check.interaction({
-          state: 'end',
-          reply: /Thanks for joining MAMA. We\'ll start SMSing you this week./
-        })
-        .check(function (api) {
-          var smses = _.where(api.outbound.store, {
-              endpoint: 'sms'
-          });
-          assert.equal(smses.length, 1);
-          assert.equal(smses[0].content, 'This is the welcome SMS.');
-        })
-        .run();
-    });
+      beforeEach(function () {
+        tester.setup.user.answers({
+          'user_status': 'pregnant',
+          'expected_month': '10',
+          'language_selection': 'en'
+        });
+      });
 
+      it('should end when having answered the HIV+ opt-in question', function () {
+        return tester
+          .setup.user.state('hiv_messages')
+          .input('1')
+          .check.interaction({
+            state: 'end',
+            reply: /Thanks for joining MAMA. We\'ll start SMSing you this week./
+          })
+          .run();
+      });
+
+      it('should send a welcome SMS on ending if configured', function () {
+        return tester
+          .setup.config.app({
+            welcome_sms_copy: 'This is the welcome SMS.',
+            endpoints: {
+                "sms": {"delivery_class": "sms"}
+            }
+          })
+          .setup.user.state('hiv_messages')
+          .input('1')
+          .check.interaction({
+            state: 'end',
+            reply: /Thanks for joining MAMA. We\'ll start SMSing you this week./
+          })
+          .check(function (api) {
+            var smses = _.where(api.outbound.store, {
+                endpoint: 'sms'
+            });
+            assert.equal(smses.length, 1);
+            assert.equal(smses[0].content, 'This is the welcome SMS.');
+          })
+          .run();
+      });
+
+      it('should save the relevant information on the contact for pregnant women', function () {
+        return tester
+          .setup.user.state('hiv_messages')
+          .input('1')
+          .check.interaction({
+            state: 'end'
+          })
+          .check(function (api) {
+            var contact = _.find(api.contacts.store, {
+              msisdn: '+27123456789'
+            });
+            console.log(api.contacts.store);
+            assert.equal(contact.extra['mama-sms-user-status'], 'pregnant');
+            assert.equal(contact.extra['mama-sms-dob'], '2014-11-15T00:00:00.000Z');
+            assert.equal(contact.extra['mama-sms-language'], 'en');
+            assert.equal(contact.extra['mama-sms-hiv-messages'], 'hiv');
+            assert.equal(
+              contact.extra['mama-sms-registration-date'],
+              '2014-09-01T00:00:00.000Z');
+          })
+          .run();
+      });
+    });
   });
 });

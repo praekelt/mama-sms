@@ -70,6 +70,24 @@ go.utils = {
     return 36 - weeks_to_go;
   },
 
+  get_dob_for_user_status: function(im) {
+    var user = im.user,
+        user_status = user.get_answer('user_status');
+    var dob;
+    switch(user_status) {
+      case 'pregnant':
+        dob = this.month_of_year_to_week(user.get_answer('expected_month')).toISOString();
+        break;
+      case 'baby':
+        dob = this.months_to_week(user.get_answer('initial_age')).toISOString();
+        break;
+      default:
+        dob = 'unknown';
+        break;
+    }
+    return dob;
+  },
+
   /*
   get_seq_send_keys: function() {
     if(!im.config.sequential_send_keys) {
@@ -382,14 +400,34 @@ go.app = function() {
       }));
 
     self.states.add('close', function (name, opts) {
-      var p = self.im.config.welcome_sms_copy
-              ? self.im.outbound.send_to_user({
-                endpoint: 'sms',
-                content: self.im.config.welcome_sms_copy
-              }) : Q(true);
-
-      return p
+      return Q(true)
         .then(function () {
+          // Send welcome SMS if configured
+          if(self.im.config.welcome_sms_copy) {
+            return self.im.outbound.send_to_user({
+              endpoint: 'sms',
+              content: self.im.config.welcome_sms_copy
+            });
+          }
+        })
+        .then(function () {
+          // Save information on the contact
+          return self.im.contacts
+            .for_user()
+            .then(function(contact) {
+              var user = self.im.user;
+              contact.extra['mama-sms-user-status'] = user.get_answer('user_status');
+              contact.extra['mama-sms-dob'] = go.utils.get_dob_for_user_status(self.im);
+              contact.extra['mama-sms-language'] = (
+                self.im.config.default_language || user.get_answer('language_selection'));
+              contact.extra['mama-sms-hiv-messages'] = (
+                self.im.config.skip_hiv_messages ? 'general' : user.get_answer('hiv_messages'));
+              contact.extra['mama-sms-registration-date'] = go.utils.get_current_date().toISOString();
+              return self.im.contacts.save(contact);
+            });
+        })
+        .then(function () {
+          // delegate to the end state
           return self.states.create('end');
         });
     });

@@ -63,6 +63,24 @@ go.utils = {
     return 36 - weeks_to_go;
   },
 
+  get_dob_for_user_status: function(im) {
+    var user = im.user,
+        user_status = user.get_answer('user_status');
+    var dob;
+    switch(user_status) {
+      case 'pregnant':
+        dob = this.month_of_year_to_week(user.get_answer('expected_month')).toISOString();
+        break;
+      case 'baby':
+        dob = this.months_to_week(user.get_answer('initial_age')).toISOString();
+        break;
+      default:
+        dob = 'unknown';
+        break;
+    }
+    return dob;
+  },
+
   /*
   get_seq_send_keys: function() {
     if(!im.config.sequential_send_keys) {
