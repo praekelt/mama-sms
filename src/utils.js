@@ -81,26 +81,14 @@ go.utils = {
     return dob;
   },
 
-  /*
-  get_seq_send_keys: function() {
+  get_seq_send_keys: function(im) {
     if(!im.config.sequential_send_keys) {
-      throw new MamaSMSError('sequential_send_keys config value missing');
+      return [];
     }
     return im.config.sequential_send_keys.map(function(key) {
       return 'scheduled_message_index_' + key;
     });
   },
 
-  send_sms: function(im, to_addr, content) {
-    var sms_tag = im.config.sms_tag;
-    if (!sms_tag) return success(true);
-    return im.api_request("outbound.send_to_tag", {
-      to_addr: to_addr,
-      content: content,
-      tagpool: sms_tag[0],
-      tag: sms_tag[1]
-    });
-  },
-  */
   'bloody trailing': 'commas'
 };

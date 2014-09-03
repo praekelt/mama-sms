@@ -88,27 +88,15 @@ go.utils = {
     return dob;
   },
 
-  /*
-  get_seq_send_keys: function() {
+  get_seq_send_keys: function(im) {
     if(!im.config.sequential_send_keys) {
-      throw new MamaSMSError('sequential_send_keys config value missing');
+      return [];
     }
     return im.config.sequential_send_keys.map(function(key) {
       return 'scheduled_message_index_' + key;
     });
   },
 
-  send_sms: function(im, to_addr, content) {
-    var sms_tag = im.config.sms_tag;
-    if (!sms_tag) return success(true);
-    return im.api_request("outbound.send_to_tag", {
-      to_addr: to_addr,
-      content: content,
-      tagpool: sms_tag[0],
-      tag: sms_tag[1]
-    });
-  },
-  */
   'bloody trailing': 'commas'
 };
 
@@ -416,13 +404,21 @@ go.app = function() {
             .for_user()
             .then(function(contact) {
               var user = self.im.user;
+              var dob = go.utils.get_dob_for_user_status(self.im);
               contact.extra['mama-sms-user-status'] = user.get_answer('user_status');
-              contact.extra['mama-sms-dob'] = go.utils.get_dob_for_user_status(self.im);
+              contact.extra['mama-sms-dob'] = dob;
               contact.extra['mama-sms-language'] = (
                 self.im.config.default_language || user.get_answer('language_selection'));
               contact.extra['mama-sms-hiv-messages'] = (
                 self.im.config.skip_hiv_messages ? 'general' : user.get_answer('hiv_messages'));
               contact.extra['mama-sms-registration-date'] = go.utils.get_current_date().toISOString();
+
+              // set the sequential send keys
+              var seq_send_keys = go.utils.get_seq_send_keys(self.im);
+              seq_send_keys.forEach(function(key) {
+                  contact.extra[key] = Number(go.utils.get_poll_number(new Date(dob))).toString();
+              });
+
               return self.im.contacts.save(contact);
             });
         })

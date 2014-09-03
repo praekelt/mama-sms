@@ -302,13 +302,21 @@ go.app = function() {
             .for_user()
             .then(function(contact) {
               var user = self.im.user;
+              var dob = go.utils.get_dob_for_user_status(self.im);
               contact.extra['mama-sms-user-status'] = user.get_answer('user_status');
-              contact.extra['mama-sms-dob'] = go.utils.get_dob_for_user_status(self.im);
+              contact.extra['mama-sms-dob'] = dob;
               contact.extra['mama-sms-language'] = (
                 self.im.config.default_language || user.get_answer('language_selection'));
               contact.extra['mama-sms-hiv-messages'] = (
                 self.im.config.skip_hiv_messages ? 'general' : user.get_answer('hiv_messages'));
               contact.extra['mama-sms-registration-date'] = go.utils.get_current_date().toISOString();
+
+              // set the sequential send keys
+              var seq_send_keys = go.utils.get_seq_send_keys(self.im);
+              seq_send_keys.forEach(function(key) {
+                  contact.extra[key] = Number(go.utils.get_poll_number(new Date(dob))).toString();
+              });
+
               return self.im.contacts.save(contact);
             });
         })

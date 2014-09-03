@@ -177,7 +177,7 @@ describe("MAMA SMS", function() {
             })
             .setup.user.answers({
               'user_status': 'pregnant',
-              'expected_month': '10',
+              'expected_month': '10', // is '2014-11-15T00:00:00.000Z'
               'language_selection': 'en'
             })
             .setup.user.state('expected_month')
@@ -388,7 +388,6 @@ describe("MAMA SMS", function() {
             var contact = _.find(api.contacts.store, {
               msisdn: '+27123456789'
             });
-            console.log(api.contacts.store);
             assert.equal(contact.extra['mama-sms-user-status'], 'pregnant');
             assert.equal(contact.extra['mama-sms-dob'], '2014-11-15T00:00:00.000Z');
             assert.equal(contact.extra['mama-sms-language'], 'en');
@@ -396,6 +395,28 @@ describe("MAMA SMS", function() {
             assert.equal(
               contact.extra['mama-sms-registration-date'],
               '2014-09-01T00:00:00.000Z');
+          })
+          .run();
+      });
+
+      it('should save the sequential send keys if supplied', function () {
+        return tester
+          .setup.config.app({
+            'sequential_send_keys': ['foo', 'bar']
+          })
+          .setup.user.state('hiv_messages')
+          .input('1')
+          .check.interaction({
+            state: 'end'
+          })
+          .check(function (api) {
+            var contact = _.find(api.contacts.store, {
+              msisdn: '+27123456789'
+            });
+            assert.equal(
+              contact.extra['scheduled_message_index_foo'], 25);
+            assert.equal(
+              contact.extra['scheduled_message_index_bar'], 25);
           })
           .run();
       });

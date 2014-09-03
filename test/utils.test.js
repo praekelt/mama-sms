@@ -98,6 +98,12 @@ describe("go.utils", function() {
         moment.utc('2014-08-18T00:00:00.000Z').toDate()),
       -1);
   });
+  it('should return a "poll number" for a birth date', function () {
+    assert.equal(
+      go.utils.get_poll_number(
+        moment.utc('2014-11-15T00:00:00.000Z').toDate()),
+      25);
+  });
   it('should provide a helper function for getting the seq-send keys');
   it('should provide a helper for sending an SMS');
 });
