@@ -164,6 +164,24 @@ go.app = function() {
       })
     );
 
+    self.states.add('user_status', function (name, opts) {
+      return new ChoiceState(name, {
+        question: $('Are you pregnant, or do you have a baby?'),
+        choices: [
+          new Choice('pregnant', $('Pregnant')),
+          new Choice('baby', $('Baby')),
+          new Choice('unknown', $('Don\'t know'))
+        ],
+        next: function (choice) {
+          return {
+            'pregnant': 'expected_month',
+            'baby': 'initial_age',
+            'unknown': 'missed_period'
+          }[choice.value];
+        }
+      });
+    });
+
   });
 
   return {
