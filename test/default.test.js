@@ -176,6 +176,68 @@ describe("MAMA SMS", function() {
         .run();
     });
 
+    describe('pre-natal registration', function () {
+
+      describe('without HIV specific messaging', function () {
+        beforeEach(function () {
+          tester.setup.config.app({
+            skip_hiv_messages: true
+          });
+        });
+
+        it('should end if not providing HIV specific messaging', function () {
+          return tester
+            .setup.config.app({
+              skip_hiv_messages: true
+            })
+            .setup.user.state('expected_month')
+            .input('1')
+            .check.interaction({
+              state: 'end',
+              reply: /Thanks for joining MAMA. We\'ll start SMSing you this week./
+            })
+            .run();
+        });
+      });
+
+      it('should recommend going to the clinic when unsure about DOB', function () {
+        return tester
+          .setup.user.state({
+            name: 'expected_month',
+            metadata: {
+              page_start: 8
+            }
+          })
+          .input('5')
+          .check.interaction({
+            state: 'go_to_clinic',
+            reply: /To sign up, we need to know which month/
+          })
+          .run();
+      });
+
+      it('should ask for HIV specific messaging opt-in when supplying DOB', function () {
+        return tester
+          .setup.user.state('expected_month')
+          .input('1')
+          .check.interaction({
+            state: 'hiv_messages',
+            reply: /If you are HIV\+ you can get SMSes with extra info/
+          })
+          .run();
+      });
+
+      it('should end when having answered the HIV+ question', function () {
+        return tester
+          .setup.user.state('hiv_messages')
+          .input('1')
+          .check.interaction({
+            state: 'end'
+          })
+          .run();
+      });
+    });
+
     it('should ask the initial age when baby already born', function () {
       return tester
         .setup.user.state('user_status')
@@ -187,32 +249,33 @@ describe("MAMA SMS", function() {
         .run();
     });
 
-    it('should recommend a pregnancy test if the mother is not sure', function () {
-      return tester
-        .setup.user.state('user_status')
-        .input('3')
-        .check.interaction({
-          state: 'missed_period',
-          reply: /If you have missed a period/
-        })
-        .run();
+    describe('when not sure about pregnancy', function () {
+
+      it('should recommend a pregnancy test', function () {
+        return tester
+          .setup.user.state('user_status')
+          .input('3')
+          .check.interaction({
+            state: 'missed_period',
+            reply: /If you have missed a period/
+          })
+          .run();
+      });
+
+      it('should recommend getting tested', function () {
+        return tester
+          .setup.user.state('missed_period')
+          .input('1')
+          .check.interaction({
+            state: 'get_tested',
+            reply: [
+              "Don't wait! The 1st pregnancy check-up must happen soon. ",
+              "Do the test as soon as possible at a clinic, ",
+              "or get 1 at a pharmacy."
+            ].join("")
+          })
+          .run();
+      });
     });
-
-    it('should recommend getting tested if the mother is not sure', function () {
-      return tester
-        .setup.user.state('missed_period')
-        .input('1')
-        .check.interaction({
-          state: 'get_tested',
-          reply: [
-            "Don't wait! The 1st pregnancy check-up must happen soon. ",
-            "Do the test as soon as possible at a clinic, ",
-            "or get 1 at a pharmacy."
-          ].join("")
-        })
-        .run();
-    });
-
-
   });
 });

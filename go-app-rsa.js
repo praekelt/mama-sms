@@ -298,9 +298,22 @@ go.app = function() {
           new Choice(11, $('Dec')),
           new Choice('unknown', $('Don\'t know'))
         ],
-        options_per_age: 7
+        options_per_age: 7,
+        next: function (choice) {
+          console.log('choice!!', choice.value, choice.label);
+          if(choice.value == 'unknown') {
+            return 'go_to_clinic';
+          }
+          return self.im.config.skip_hiv_messages ? 'end' : 'hiv_messages';
+        }
       });
     });
+
+    self.states.add('go_to_clinic', self.make_fake_exit_menu({
+      next: 'states_start',
+      text: $("To sign up, we need to know which month. Please go to the clinic to " +
+              "find out, and dial us again.")
+    }));
 
     self.states.add('initial_age', function (name, opts) {
       return new ChoiceState(name, {
@@ -327,6 +340,19 @@ go.app = function() {
       });
     });
 
+    self.states.add('hiv_messages', function (name, opts) {
+      return new ChoiceState(name, {
+        question: $(
+          'If you are HIV+ you can get SMSes with extra info for HIV+ moms. ' +
+          'They may mention your status. Or, you can choose general SMSes only.'),
+        choices: [
+          new Choice('hiv', $('HIV')),
+          new Choice('general', $('General'))
+        ],
+        next: 'end'
+      });
+    });
+
     self.states.add('missed_period', function (name, opts) {
       return new ChoiceState(name, {
         question: $(
@@ -346,6 +372,12 @@ go.app = function() {
           "Don't wait! The 1st pregnancy check-up must happen soon. " +
           "Do the test as soon as possible at a clinic, " +
           "or get 1 at a pharmacy.")
+      }));
+
+    self.states.add('end',
+      self.make_fake_exit_menu({
+        next: 'states_start',
+        text: $('Thanks for joining MAMA. We\'ll start SMSing you this week.')
       }));
   });
 
