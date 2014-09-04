@@ -255,7 +255,7 @@ describe("MAMA SMS", function() {
               skip_hiv_messages: true
             })
             .setup.user.answers({
-              'user_status': 'pregnant',
+              'user_status': 'baby',
               'expected_month': '10',
               'language_selection': 'en'
             })
