@@ -8,4 +8,4 @@ install:
 script:
   - grunt test
 after_success:
-  - cat mochacov.lcov | coveralls.js
+  - "cat mochacov.lcov | `npm bin`/coveralls.js"
