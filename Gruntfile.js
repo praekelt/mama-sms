@@ -161,17 +161,6 @@ module.exports = function (grunt) {
           output: 'mochacov-default.lcov',
           coverage: true
         }
-      },
-      cov_metrics: {
-        options: {
-          files: [
-            '<%= paths.test.default %>',
-            '<%= paths.test.metrics %>'
-          ],
-          reporter: 'mocha-lcov-reporter',
-          output: 'mochacov-metrics.lcov',
-          coverage: true
-        }
       }
     }
   });
