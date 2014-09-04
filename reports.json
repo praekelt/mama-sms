@@ -8,7 +8,7 @@
                 "metric_type": "account",
                 "store": "mama_sms",
                 "name": "qa.registerd_users",
-                "aggregator": "last"
+                "aggregator": "max"
                 }
         },
         {
@@ -19,7 +19,7 @@
                 "metric_type": "account",
                 "store": "mama_sms",
                 "name": "qa.unique_msisdns",
-                "aggregator": "last"
+                "aggregator": "max"
                 }
         },
         {
@@ -30,7 +30,7 @@
                 "metric_type": "account",
                 "store": "mama_sms",
                 "name": "qa.inbound_message_count",
-                "aggregator": "avg"
+                "aggregator": "max"
                 }
         },
         {
@@ -41,7 +41,7 @@
                 "metric_type": "account",
                 "store": "mama_sms",
                 "name": "qa.outbound_message_count",
-                "aggregator": "last"
+                "aggregator": "max"
                 }
         },
         "new_row",
@@ -58,7 +58,7 @@
                         "metric_type": "account",
                         "store": "mama_sms",
                         "name": "qa.inbound_message_count",
-                        "aggregator": "last"
+                        "aggregator": "max"
                     }
                 },
                 {
@@ -67,7 +67,7 @@
                         "metric_type": "account",
                         "store": "mama_sms",
                         "name": "qa.outbound_message_count",
-                        "aggregator": "last"
+                        "aggregator": "max"
                     }
                 }
             ]
