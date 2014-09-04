@@ -3,6 +3,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-mocha-cov');
 
   grunt.initConfig({
     paths: {
@@ -127,13 +128,24 @@ module.exports = function (grunt) {
       test_utils :{
         src: ['<%= paths.test.utils %>']
       }
+    },
+    mochacov: {
+      cov_default: {
+        options: {
+          files: ['<%= paths.test.default %>'],
+          reporter: 'mocha-lcov-reporter',
+          output: 'mochacov.lcov',
+          coverage: true
+        }
+      }
     }
   });
 
   grunt.registerTask('test', [
     'jshint',
     'build',
-    'mochaTest'
+    'mochaTest',
+    'mochacov'
   ]);
 
   grunt.registerTask('build', [

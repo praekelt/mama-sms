@@ -4,7 +4,10 @@
   "description": "A Vumi Go USSD for allowing mothers to opt-in for SMS messaging.",
   "main": "lib/app.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "blanket": {
+      "pattern": "src/"
+    }
   },
   "repository": {
     "type": "git",
@@ -36,6 +39,11 @@
     "grunt": "~0.4.4",
     "grunt-mocha-test": "~0.10.0",
     "grunt-contrib-jshint": "~0.9.2",
-    "grunt-cli": "~0.1.13"
+    "grunt-cli": "~0.1.13",
+    "karma": "~0.12.8",
+    "karma-mocha": "~0.1.0",
+    "grunt-karma": "~0.8.3",
+    "karma-coverage": "~0.1.0",
+    "grunt-mocha-cov": "~0.2.1"
   }
 }

@@ -1,3 +1,10 @@
 language: node_js
 node_js:
   - "0.10"
+install:
+  - npm install
+  - pip install overalls
+script:
+  - grunt test
+after_success:
+  - overalls --py --lcov mochacov.lcov
