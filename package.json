@@ -1,32 +1,49 @@
 {
   "name": "go-mama-sms",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "A Vumi Go USSD for allowing mothers to opt-in for SMS messaging.",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-    "vumigo_v01": "0.1.x",
-    "jed": "0.5.x"
-  },
-  "devDependencies": {
-    "mocha": "~1.7.1"
-  },
+  "main": "lib/app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "grunt test",
+    "blanket": {
+      "pattern": "/src/"
+    }
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/praekelt/mama-go"
+    "url": "git://github.com/praekelt/mama-sms"
   },
   "keywords": [
     "vumi",
-    "ussd",
-    "sms",
-    "mama"
+    "sandbox"
   ],
-  "author": "Praekelt Foundation <dev@praekeltfoundation.org>",
+  "author": "Praekelt Foundation",
   "license": "BSD",
-  "readmeFilename": "README.rst"
+  "bugs": {
+    "url": "https://github.com/praekelt/mama-sms/issues"
+  },
+  "homepage": "https://github.com/praekelt/mama-sms",
+  "dependencies": {
+    "vumigo_v02": "~0.2",
+    "q": "~0.9",
+    "lodash": "~2.4.1",
+    "moment": "~2.6.0",
+    "libxmljs": "0.8.x"
+  },
+  "devDependencies": {
+    "mocha-as-promised": "~2.0.0",
+    "mocha": "~1.18",
+    "jshint": "~2.4.4",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.6.0",
+    "grunt": "~0.4.4",
+    "grunt-mocha-test": "~0.10.0",
+    "grunt-contrib-jshint": "~0.9.2",
+    "grunt-cli": "~0.1.13",
+    "karma": "~0.12.8",
+    "karma-mocha": "~0.1.0",
+    "grunt-karma": "~0.8.3",
+    "karma-coverage": "~0.1.0",
+    "grunt-mocha-cov": "~0.2.1"
+  }
 }

@@ -1,6 +1,12 @@
 mama-sms
 =======
 
+.. image:: https://travis-ci.org/praekelt/mama-sms.svg?branch=develop
+    :target: https://travis-ci.org/praekelt/mama-sms
+
+.. image:: https://coveralls.io/repos/praekelt/mama-sms/badge.png?branch=develop
+    :target: https://coveralls.io/r/praekelt/mama-sms
+
 This is the repository for the SMS components of the MAMA project.
 This is running in production on *120*2112*2#.
 

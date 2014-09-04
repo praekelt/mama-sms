@@ -1,3 +1,11 @@
 language: node_js
 node_js:
   - "0.10"
+install:
+  - npm install
+  - npm install coveralls
+  - npm install mocha-lcov-reporter
+script:
+  - grunt test
+after_success:
+  - "cat mochacov.lcov | `npm bin`/coveralls"
