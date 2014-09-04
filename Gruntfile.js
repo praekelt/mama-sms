@@ -134,8 +134,6 @@ module.exports = function (grunt) {
         options: {
           files: [
             '<%= paths.test.default %>',
-            '<%= paths.test.rsa %>',
-            '<%= paths.test.kenya %>',
             '<%= paths.test.utils %>'
           ],
           reporter: 'mocha-lcov-reporter',
