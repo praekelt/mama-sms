@@ -18,6 +18,7 @@ module.exports = function (grunt) {
           'src/index.js',
           'src/constants.js',
           'src/utils.js',
+          'src/metrics.js',
           '<%= paths.src.app.default %>',
           'src/init.js'
         ],
@@ -25,6 +26,7 @@ module.exports = function (grunt) {
           'src/index.js',
           'src/constants.js',
           'src/utils.js',
+          'src/holodeck.js',
           '<%= paths.src.app.default %>',
           'src/holodeck.js',
           'src/init.js'
@@ -55,6 +57,7 @@ module.exports = function (grunt) {
           'test/setup.js',
           'src/constants.js',
           'src/utils.js',
+          'src/metrics.js',
           '<%= paths.src.app.default %>',
           'test/default.test.js'
         ],
@@ -62,6 +65,7 @@ module.exports = function (grunt) {
           'test/setup.js',
           'src/constants.js',
           'src/utils.js',
+          'src/holodeck.js',
           '<%= paths.src.app.default %>',
           'test/default.test.js'
         ],

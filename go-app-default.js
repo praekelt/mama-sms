@@ -100,6 +100,14 @@ go.utils = {
   'bloody trailing': 'commas'
 };
 
+var Q = require('Q');
+
+go.metrics = {
+  publish_daily_stats: function () {
+    return Q(true);
+  }
+};
+
 go.app = function() {
 
   var vumigo = require('vumigo_v02');
@@ -421,6 +429,9 @@ go.app = function() {
 
               return self.im.contacts.save(contact);
             });
+        })
+        .then(function () {
+          return go.metrics.publish_daily_stats();
         })
         .then(function () {
           // delegate to the end state

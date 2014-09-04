@@ -321,6 +321,9 @@ go.app = function() {
             });
         })
         .then(function () {
+          return go.metrics.publish_daily_stats();
+        })
+        .then(function () {
           // delegate to the end state
           return self.states.create('end');
         });
