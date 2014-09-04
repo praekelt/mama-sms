@@ -32,7 +32,6 @@ describe("go.metrics", function() {
           key: 'registered-users'
         });
       })
-      .start()
       .run();
 
     // patch the date we're working with in tests.
