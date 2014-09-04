@@ -1,4 +1,4 @@
-var Q = require('Q');
+var Q = require('q');
 
 go.METRICS_PUSH_DATE = 'metrics_push_date';
 
