@@ -8,4 +8,5 @@ install:
 script:
   - grunt test
 after_success:
-  - "cat mochacov-default.lcov mochacov-metrics.lcov | `npm bin`/coveralls"
+  - "cat mochacov-default.lcov | `npm bin`/coveralls"
+  - "cat mochacov-metrics.lcov | `npm bin`/coveralls"
