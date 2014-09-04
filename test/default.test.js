@@ -22,6 +22,9 @@ describe("MAMA SMS", function() {
     };
 
     tester
+      .setup.config.app({
+        skip_holodeck: true
+      })
       .setup(function(api) {
         var optout_resource = new DummyOptoutResource();
         optout_resource.optout_store = [

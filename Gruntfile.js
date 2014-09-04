@@ -12,12 +12,14 @@ module.exports = function (grunt) {
           'default': 'src/default.js',
           'rsa': 'src/default.js',
           'kenya': 'src/kenya.js',
-          'utils': 'src/utils.js'
+          'utils': 'src/utils.js',
+          'metrics': 'src/metrics.js'
         },
         'default': [
           'src/index.js',
           'src/constants.js',
           'src/utils.js',
+          'src/metrics.js',
           '<%= paths.src.app.default %>',
           'src/init.js'
         ],
@@ -25,6 +27,7 @@ module.exports = function (grunt) {
           'src/index.js',
           'src/constants.js',
           'src/utils.js',
+          'src/holodeck.js',
           '<%= paths.src.app.default %>',
           'src/holodeck.js',
           'src/init.js'
@@ -41,6 +44,11 @@ module.exports = function (grunt) {
           'src/constants.js',
           'src/utils.js'
         ],
+        'metrics': [
+          'src/index.js',
+          'src/constants.js',
+          'src/metrics.js'
+        ],
         'all': [
           'src/**/*.js'
         ]
@@ -55,6 +63,7 @@ module.exports = function (grunt) {
           'test/setup.js',
           'src/constants.js',
           'src/utils.js',
+          'src/metrics.js',
           '<%= paths.src.app.default %>',
           'test/default.test.js'
         ],
@@ -62,6 +71,7 @@ module.exports = function (grunt) {
           'test/setup.js',
           'src/constants.js',
           'src/utils.js',
+          'src/holodeck.js',
           '<%= paths.src.app.default %>',
           'test/default.test.js'
         ],
@@ -78,6 +88,13 @@ module.exports = function (grunt) {
           'src/utils.js',
           '<%= paths.src.app.utils %>',
           'test/utils.test.js'
+        ],
+        'metrics': [
+          'test/setup.js',
+          'src/constants.js',
+          'src/metrics.js',
+          '<%= paths.src.app.metrics %>',
+          'test/metrics.test.js'
         ]
       }
     },
@@ -127,6 +144,9 @@ module.exports = function (grunt) {
       },
       test_utils :{
         src: ['<%= paths.test.utils %>']
+      },
+      test_metrics: {
+        src: ['<%= paths.test.metrics %>']
       }
     },
     mochacov: {
@@ -134,10 +154,11 @@ module.exports = function (grunt) {
         options: {
           files: [
             '<%= paths.test.default %>',
-            '<%= paths.test.utils %>'
+            '<%= paths.test.utils %>',
+            '<%= paths.test.metrics %>'
           ],
           reporter: 'mocha-lcov-reporter',
-          output: 'mochacov.lcov',
+          output: 'mochacov-default.lcov',
           coverage: true
         }
       }
