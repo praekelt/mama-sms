@@ -7,7 +7,7 @@
             "target": {
                 "metric_type": "account",
                 "store": "mama_sms",
-                "name": "qa.registerd_users",
+                "name": "qa.registered_users",
                 "aggregator": "max"
                 }
         },
