@@ -13,7 +13,7 @@ module.exports = function (grunt) {
           'rsa': 'src/default.js',
           'kenya': 'src/kenya.js',
           'utils': 'src/utils.js',
-          'metrics': 'src/metrics.js',
+          'metrics': 'src/metrics.js'
         },
         'default': [
           'src/index.js',
@@ -92,7 +92,6 @@ module.exports = function (grunt) {
         'metrics': [
           'test/setup.js',
           'src/constants.js',
-          'src/utils.js',
           'src/metrics.js',
           '<%= paths.src.app.metrics %>',
           'test/metrics.test.js'
@@ -159,7 +158,18 @@ module.exports = function (grunt) {
             '<%= paths.test.metrics %>'
           ],
           reporter: 'mocha-lcov-reporter',
-          output: 'mochacov.lcov',
+          output: 'mochacov-default.lcov',
+          coverage: true
+        }
+      },
+      cov_metrics: {
+        options: {
+          files: [
+            '<%= paths.test.default %>',
+            '<%= paths.test.metrics %>'
+          ],
+          reporter: 'mocha-lcov-reporter',
+          output: 'mochacov-metrics.lcov',
           coverage: true
         }
       }
