@@ -8,22 +8,21 @@ var optout = require('./resource.optout.js');
 var DummyOptoutResource = optout.DummyOptoutResource;
 
 describe("MAMA SMS", function() {
-  describe("default behaviour", function() {
-    var app;
-    var tester;
 
-    beforeEach(function() {
-      app = new go.app.GoMAMA();
-      tester = new AppTester(app);
+  var app;
+  var tester;
 
-      // patch the date we're working with in tests.
-      go.utils.get_current_date = function() {
-        return moment.utc('2014-09-01T00:00:00+00:00').toDate();
-      };
+  beforeEach(function () {
+    app = new go.app.GoMAMA();
+    tester = new AppTester(app);
 
-      tester
-        .setup(function(api) {
+    // patch the date we're working with in tests.
+    go.utils.get_current_date = function() {
+      return moment.utc('2014-09-01T00:00:00+00:00').toDate();
+    };
 
+    tester
+      .setup(function(api) {
         var optout_resource = new DummyOptoutResource();
         optout_resource.optout_store = [
           'msisdn:+27001'
@@ -31,8 +30,10 @@ describe("MAMA SMS", function() {
 
         api.resources.add(optout_resource);
         api.resources.attach(api);
-        });
-    });
+      });
+  });
+
+  describe("default behaviour", function() {
 
     describe('when opted out', function () {
       it('should check optout status on session start', function () {
@@ -418,6 +419,51 @@ describe("MAMA SMS", function() {
             assert.equal(
               contact.extra['scheduled_message_index_bar'], 25);
           })
+          .run();
+      });
+    });
+  });
+
+  describe('STK implementation', function () {
+
+    describe('menu ending scenario', function () {
+
+      beforeEach(function () {
+        tester
+          .setup.user.answers({
+            'user_status': 'pregnant',
+            'expected_month': '10',
+            'language_selection': 'en'
+          })
+          .setup.config.app({
+            stk_fake_exit: true
+          });
+
+      });
+
+      it('should end with a two step exit screen', function () {
+        return tester
+          .setup.user.state('hiv_messages')
+          .input('1')
+          .check.interaction({
+            state: 'end',
+            reply: [
+              'Thanks for joining MAMA. We\'ll start SMSing you this week.',
+              '1. Exit'
+            ].join('\n')
+          })
+          .run();
+      });
+
+      it('should show the second exit screen', function () {
+        return tester
+          .setup.user.state('end')
+          .input('1')
+          .check.interaction({
+            state: 'stk_end',
+            reply: 'Thank you, good bye.'
+          })
+          .check.reply.ends_session()
           .run();
       });
     });
