@@ -646,7 +646,7 @@ go.app = function() {
             });
         })
         .then(function () {
-          return go.metrics.publish_daily_stats();
+          return go.metrics.publish_daily_stats(self.im);
         })
         .then(function () {
           // delegate to the end state
