@@ -6,7 +6,7 @@
   "scripts": {
     "test": "grunt test",
     "blanket": {
-      "pattern": "src/"
+      "pattern": "/src/"
     }
   },
   "repository": {

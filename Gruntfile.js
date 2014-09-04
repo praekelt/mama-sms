@@ -132,7 +132,12 @@ module.exports = function (grunt) {
     mochacov: {
       cov_default: {
         options: {
-          files: ['<%= paths.test.default %>'],
+          files: [
+            '<%= paths.test.default %>',
+            '<%= paths.test.rsa %>',
+            '<%= paths.test.kenya %>',
+            '<%= paths.test.utils %>'
+          ],
           reporter: 'mocha-lcov-reporter',
           output: 'mochacov.lcov',
           coverage: true
