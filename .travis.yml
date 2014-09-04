@@ -3,8 +3,9 @@ node_js:
   - "0.10"
 install:
   - npm install
-  - pip install overalls
+  - npm install -g coveralls
+  - npm install -g mocha-lcov-reporter
 script:
   - grunt test
 after_success:
-  - overalls --py --lcov mochacov.lcov
+  - cat mochacov.lcov | coveralls.js
