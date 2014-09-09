@@ -131,37 +131,20 @@ go.metrics = {
   },
 
   publish_stats: function (im) {
-    return Q(true)
-      .then(function () {
-        return go.metrics.publish_group_counts(im, {
-          group_name: im.config.group_name || 'Registered Users',
-          metric_name: 'registered_users'
-        });
-      })
-      .then(function () {
-        return go.metrics.publish_uniques_counts(im, {
-          conversation_key: im.config.conversation_key,
-          metric_name: 'unique_msisdns'
-        });
-      })
-      .then(function () {
-        return go.metrics.publish_inbound_message_counts(im, {
-          conversation_keys: (
-            im.config.sequential_send_keys.concat(im.config.extra_sms_stat_keys || [])),
-          metric_name: 'inbound_message_count'
-        });
-      })
-      .then(function () {
-        return go.metrics.publish_outbound_message_counts(im, {
-          conversation_keys: (
-            im.config.sequential_send_keys.concat(im.config.extra_sms_stat_keys || [])),
-          metric_name: 'outbound_message_count'
-        });
-      });
+    return Q.all([
+      go.metrics.publish_group_metrics(im, im.config.group_metrics || []),
+      go.metrics.publish_conversation_metrics(im, im.config.conversation_metrics || [])
+    ]);
   },
 
   get_metric_name: function (im, name) {
     return [im.config.metric_prefix, name].join('.');
+  },
+
+  publish_group_metrics: function(im, group_metrics) {
+    return Q.all(group_metrics.map(function (metric) {
+      return go.metrics.publish_group_counts(im, metric);
+    }));
   },
 
   publish_group_counts: function(im, opts) {
@@ -169,11 +152,30 @@ go.metrics = {
       .get_group_count(im, opts.group_name)
       .then(function (count) {
         return im
-          .metrics.fire.max(go.metrics.get_metric_name(im, opts.metric_name), count);
+          .metrics.fire.max(go.metrics.get_metric_name(im, opts.metric_prefix), count);
       });
   },
 
-  publish_uniques_counts: function(im, opts) {
+  publish_conversation_metrics: function(im, conversation_metrics) {
+    return Q.all(conversation_metrics.map(function (metric) {
+      return Q.all([
+          go.metrics.publish_uniques_count(im, {
+            conversation_key: metric.conversation_key,
+            metric_name: [metric.metric_prefix, 'uniques'].join('.')
+          }),
+          go.metrics.publish_inbound_message_count(im, {
+            conversation_key: metric.conversation_key,
+            metric_name: [metric.metric_prefix, 'inbound'].join('.')
+          }),
+          go.metrics.publish_outbound_message_count(im, {
+            conversation_key: metric.conversation_key,
+            metric_name: [metric.metric_prefix, 'outbound'].join('.')
+          })
+        ]);
+    }));
+  },
+
+  publish_uniques_count: function(im, opts) {
     return this
       .get_uniques_count(im, opts.conversation_key)
       .then(function (count) {
@@ -182,32 +184,30 @@ go.metrics = {
       });
   },
 
-  publish_inbound_message_counts: function (im, opts) {
-    return Q.all(opts.conversation_keys.map(function (conversation_key) {
-      return im.api_request('messagestore.count_replies', {
-        conversation_key: conversation_key
-      }).get('count');
-    }))
-      .then(function (counts) {
-        return im
-          .metrics.fire.max(
-            go.metrics.get_metric_name(im, opts.metric_name),
-            go.metrics.sum(counts));
-      });
+  publish_inbound_message_count: function (im, opts) {
+    return im.api_request('messagestore.count_replies', {
+      conversation_key: opts.conversation_key
+    })
+    .get('count')
+    .then(function (count) {
+      return im
+        .metrics.fire.max(
+          go.metrics.get_metric_name(im, opts.metric_name),
+          count);
+    });
   },
 
-  publish_outbound_message_counts: function (im, opts) {
-    return Q.all(opts.conversation_keys.map(function (conversation_key) {
-      return im.api_request('messagestore.count_sent_messages', {
-        conversation_key: conversation_key
-      }).get('count');
-    }))
-      .then(function (counts) {
-        return im
-          .metrics.fire.max(
-            go.metrics.get_metric_name(im, opts.metric_name),
-            go.metrics.sum(counts));
-      });
+  publish_outbound_message_count: function (im, opts) {
+    return im.api_request('messagestore.count_sent_messages', {
+      conversation_key: opts.conversation_key
+    })
+    .get('count')
+    .then(function (count) {
+      return im
+        .metrics.fire.max(
+          go.metrics.get_metric_name(im, opts.metric_name),
+          count);
+    });
   },
 
   sum: function (values) {
