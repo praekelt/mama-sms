@@ -8,7 +8,27 @@
   "custom_opening_copy": "Welcome to MAMA. For free SMSes about your pregnancy, we need to ask you 3 questions.",
   "stk_fake_exit": true,
   "default_language" : "english",
-  "extra_sms_stat_keys": [],
   "sequential_send_keys": [],
-  "welcome_sms_copy": ""
+  "welcome_sms_copy": "",
+  "conversation_metrics": [
+    {
+      "conversation_name": "MAMA Staged Based Reminders - Monday",
+      "conversation_key": "XXX",
+      "metric_prefix": "mama_sbm_sms_monday"
+    }, {
+      "conversation_name": "MAMA Staged Based Reminders - Wednesday",
+      "conversation_key": "XXX",
+      "metric_prefix": "mama_sbm_sms_wednesday"
+    }, {
+      "conversation_name": "MAMA Staged Based Reminders - Friday",
+      "conversation_key": "XXX",
+      "metric_prefix": "mama_sbm_sms_friday"
+    }
+  ],
+  "group_metrics": [
+    {
+      "group_name": "MAMA Registered Users",
+      "metric_prefix": "mama_sbm_registered_users"
+    }
+  ]
 }

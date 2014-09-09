@@ -16,7 +16,15 @@ describe("go.metrics", function() {
       .setup.config.app({
         metric_prefix: 'foo',
         metric_store: 'test_store',
-        sequential_send_keys: ['conv-foo', 'conv-bar']
+        sequential_send_keys: ['conv-foo', 'conv-bar'],
+        conversation_metrics: [{
+          conversation_key: 'bar',
+          metric_prefix: 'bar'
+        }],
+        group_metrics: [ {
+          group_name: 'Registered Users',
+          metric_prefix: 'registered_users'
+        }]
       })
       .setup(function(api) {
         var dms = new DummyMessageStoreResource();
@@ -88,30 +96,37 @@ describe("go.metrics", function() {
     var im = app.im,
         api = app.im.api;
 
-    return go.metrics
-      .publish_daily_stats(im)
+    return im
+      .api_request('kv.set', {
+        key: go.METRICS_PUSH_DATE,
+        value: '2000-01-01'
+      })
       .then(function () {
-        var store = api.metrics.stores.test_store;
+        return go.metrics
+          .publish_daily_stats(im)
+          .then(function () {
+            var store = api.metrics.stores.test_store;
 
-        assert.ok(_.isEqual(store['foo.registered_users'], {
-          agg: 'max',
-          values: [0]
-        }));
+            assert.ok(_.isEqual(store['foo.registered_users'], {
+              agg: 'max',
+              values: [0]
+            }));
 
-        assert.ok(_.isEqual(store['foo.unique_msisdns'], {
-          agg: 'max',
-          values: [2]
-        }));
+            assert.ok(_.isEqual(store['foo.bar.uniques'], {
+              agg: 'max',
+              values: [2]
+            }));
 
-        assert.ok(_.isEqual(store['foo.inbound_message_count'], {
-          agg: 'max',
-          values: [6]
-        }));
+            assert.ok(_.isEqual(store['foo.bar.inbound'], {
+              agg: 'max',
+              values: [3]
+            }));
 
-        assert.ok(_.isEqual(store['foo.outbound_message_count'], {
-          agg: 'max',
-          values: [8]
-        }));
+            assert.ok(_.isEqual(store['foo.bar.outbound'], {
+              agg: 'max',
+              values: [4]
+            }));
+          });
       });
   });
 
