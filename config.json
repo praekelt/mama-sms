@@ -10,5 +10,23 @@
   "default_language" : "english",
   "extra_sms_stat_keys": [],
   "sequential_send_keys": [],
-  "welcome_sms_copy": ""
+  "welcome_sms_copy": "",
+  "conversation_stats": [
+    {
+      "name": "MAMA Staged Based Reminders - Monday",
+      "metric_name": "mama_sbm_sms_monday"
+    }, {
+      "name": "MAMA Staged Based Reminders - Wednesday",
+      "metric_name": "mama_sbm_sms_wednesday"
+    }, {
+      "name": "MAMA Staged Based Reminders - Friday",
+      "metric_name": "mama_sbm_sms_friday"
+    }
+  ],
+  "group_stats": [
+    {
+      "name": "MAMA Registered Users",
+      "metric_name": "mama_sbm_registered_users"
+    }
+  ]
 }
