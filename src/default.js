@@ -1,6 +1,7 @@
 go.app = function() {
 
   var vumigo = require('vumigo_v02');
+  var Event = vumigo.events.Event;
   var App = vumigo.App;
 
   var GoMAMA = App.extend(function(self) {
@@ -321,7 +322,7 @@ go.app = function() {
             });
         })
         .then(function () {
-          return go.metrics.publish_daily_stats(self.im);
+          return self.emit(new Event('publish_metrics', {}));
         })
         .then(function () {
           // delegate to the end state
@@ -334,6 +335,12 @@ go.app = function() {
         next: 'states_start',
         text: $('Thanks for joining MAMA. We\'ll start SMSing you this week.')
       }));
+
+    self.events = {
+      'publish_metrics': function (e) {
+        return go.metrics.publish_daily_stats(self.im);
+      }
+    };
   });
 
   return {

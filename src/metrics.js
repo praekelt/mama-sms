@@ -83,50 +83,51 @@ go.metrics = {
   },
 
   publish_inbound_message_count: function (im, opts) {
-    return im.api_request('messagestore.count_replies', {
-      conversation_key: opts.conversation_key
-    })
-    .get('count')
-    .then(function (count) {
-      return im
-        .metrics.fire.max(
-          go.metrics.get_metric_name(im, opts.metric_name),
-          count);
-    });
+    return this
+      .get_inbound_message_count(im, opts.conversation_key)
+      .then(function (count) {
+        return im
+          .metrics.fire.max(
+            go.metrics.get_metric_name(im, opts.metric_name),
+            count);
+      });
   },
 
   publish_outbound_message_count: function (im, opts) {
-    return im.api_request('messagestore.count_sent_messages', {
-      conversation_key: opts.conversation_key
-    })
-    .get('count')
-    .then(function (count) {
-      return im
-        .metrics.fire.max(
-          go.metrics.get_metric_name(im, opts.metric_name),
-          count);
-    });
-  },
-
-  sum: function (values) {
-    return values.reduce(function (previous, current) {
-      return previous + current;
-    }, 0);
+    return this
+      .get_outbound_message_count(im, opts.conversation_key)
+      .then(function (count) {
+        return im
+          .metrics.fire.max(
+            go.metrics.get_metric_name(im, opts.metric_name),
+            count);
+      });
   },
 
   get_group_count: function(im, group_name) {
-      return im
-        .groups.get(group_name)
-        .then(function (group) {
-          return im.groups.sizeOf(group);
-        });
+    return im
+      .groups.get(group_name)
+      .then(function (group) {
+        return im.groups.sizeOf(group);
+      });
   },
 
   get_uniques_count: function (im, conversation_key) {
-    return im
-      .api_request('messagestore.count_outbound_uniques', {
-        conversation_key: conversation_key
-      }).get('count');
+    return im.api_request('messagestore.count_outbound_uniques', {
+      conversation_key: conversation_key
+    }).get('count');
+  },
+
+  get_inbound_message_count: function (im, conversation_key) {
+    return im.api_request('messagestore.count_replies', {
+      conversation_key: conversation_key
+    }).get('count');
+  },
+
+  get_outbound_message_count: function (im, conversation_key) {
+    return im.api_request('messagestore.count_sent_messages', {
+      conversation_key: conversation_key
+    }).get('count');
   },
 
   'bloody': 'commas'
