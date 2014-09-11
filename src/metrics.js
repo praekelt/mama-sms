@@ -29,10 +29,9 @@ go.metrics = {
   },
 
   publish_stats: function (im) {
-    return Q.all([
-      go.metrics.publish_group_metrics(im, im.config.group_metrics || []),
-      go.metrics.publish_conversation_metrics(im, im.config.conversation_metrics || [])
-    ]);
+    return Q.all(go.metrics.metrics_handlers.map(function (handler) {
+      return handler(im);
+    }));
   },
 
   get_metric_name: function (im, name) {
@@ -129,6 +128,17 @@ go.metrics = {
       conversation_key: conversation_key
     }).get('count');
   },
+
+  metrics_handlers: [
+    // group metrics
+    function (im) {
+      return go.metrics.publish_group_metrics(im, im.config.group_metrics || []);
+    },
+    // conversation metrics
+    function (im) {
+      return go.metrics.publish_conversation_metrics(im, im.config.conversation_metrics || []);
+    }
+  ],
 
   'bloody': 'commas'
 };
